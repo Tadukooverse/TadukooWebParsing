@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project xmlns="http://maven.apache.org/POM/4.0.0"
+		 xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+		 xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+	<modelVersion>4.0.0</modelVersion>
+	<parent>
+		<artifactId>TadukooWebParsingParent</artifactId>
+		<groupId>com.github.tadukoo.parsing.web</groupId>
+		<version>0.1-Alpha-SNAPSHOT</version>
+	</parent>
+	<artifactId>TadukooWebParsing</artifactId>
+	<dependencies>
+		<!-- Tadukoo Parsing Dependency -->
+		<dependency>
+			<groupId>${tadukoo.parsing.groupID}</groupId>
+			<artifactId>${tadukoo.parsing.parsing.artifactID}</artifactId>
+		</dependency>
+		<!-- JUnit Dependencies -->
+		<dependency>
+			<groupId>${junit.jupiter.groupID}</groupId>
+			<artifactId>${junit.jupiter.artifactID}</artifactId>
+		</dependency>
+		<dependency>
+			<groupId>${junit.platform.groupID}</groupId>
+			<artifactId>${junit.platform.artifactID}</artifactId>
+		</dependency>
+	</dependencies>
+	<build>
+		<sourceDirectory>${directory.source}</sourceDirectory>
+		<testSourceDirectory>${directory.test}</testSourceDirectory>
+	</build>
+</project>
