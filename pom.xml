@@ -14,7 +14,7 @@
 	<packaging>pom</packaging>
 	<description>A collection of tools for parsing webpages.</description>
 	<modules>
-		<module>TadukooWebParsing</module>
+		<module>TadukooHTML</module>
 	</modules>
 	<properties>
 		<!-- Info -->

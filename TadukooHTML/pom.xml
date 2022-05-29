@@ -8,7 +8,7 @@
 		<groupId>com.github.tadukoo.parsing.web</groupId>
 		<version>0.1-Alpha-SNAPSHOT</version>
 	</parent>
-	<artifactId>TadukooWebParsing</artifactId>
+	<artifactId>TadukooHTML</artifactId>
 	<dependencies>
 		<!-- Tadukoo Parsing Dependency -->
 		<dependency>
