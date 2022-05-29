@@ -23,10 +23,10 @@
 	</properties>
 	<dependencyManagement>
 		<dependencies>
-			<!-- Tadukoo Web Parsing Dependency -->
+			<!-- Tadukoo HTML Dependency -->
 			<dependency>
 				<groupId>${project.groupId}</groupId>
-				<artifactId>TadukooWebParsing</artifactId>
+				<artifactId>TadukooHTML</artifactId>
 				<version>${project.version}</version>
 			</dependency>
 		</dependencies>
