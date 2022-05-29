@@ -5,8 +5,10 @@ import com.github.tadukoo.util.map.MapUtil;
 
 import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.HashSet;
 import java.util.List;
 import java.util.Map;
+import java.util.Set;
 
 /**
  * Represents an HTML Tag (both opening and closing tag), e.g. {@code &lt;html lang="en-US">&lt;/html>}
@@ -92,9 +94,17 @@ public class HTMLTag implements HTMLTagConstants{
 	protected static abstract class BaseHTMLTagBuilder{
 		/** The List of attributes in the {@link HTMLTag} */
 		protected Map<String, String> attributes = new HashMap<>();
+		/** The Set of valid attributes in the {@link HTMLTag} */
+		protected Set<String> attributeWhitelist = new HashSet<>();
+		/** The Set of valid tags under the {@link HTMLTag} */
+		protected Set<String> subTagWhitelist = new HashSet<>();
+		/** The Set of invalid tags under the {@link HTMLTag} */
+		protected Set<String> subTagBlacklist = new HashSet<>();
 		
 		/** Not allowed to instantiate outside here and extensions */
-		protected BaseHTMLTagBuilder(){ }
+		protected BaseHTMLTagBuilder(){
+			attributeWhitelist.addAll(GLOBAL_ATTRIBUTE_WHITELIST);
+		}
 		
 		/*
 		 * Global Attributes
@@ -321,9 +331,24 @@ public class HTMLTag implements HTMLTagConstants{
 	 *         <td>Required</td>
 	 *     </tr>
 	 *     <tr>
+	 *         <td>attributeWhitelist / validAttribute</td>
+	 *         <td>The Set of valid attributes in the {@link HTMLTag}</td>
+	 *         <td>Defaults to the default global attributes</td>
+	 *     </tr>
+	 *     <tr>
 	 *         <td>closingTag</td>
 	 *         <td>Whether or not to include a closing tag for this {@link HTMLTag}</td>
 	 *         <td>Defaults to {@code true}</td>
+	 *     </tr>
+	 *     <tr>
+	 *         <td>subTagWhitelist / validSubTag</td>
+	 *         <td>The Set of valid sub tags for the {@link HTMLTag}</td>
+	 *         <td>Defaults to an empty Set</td>
+	 *     </tr>
+	 *     <tr>
+	 *         <td>subTagBlacklist / invalidSubTag</td>
+	 *         <td>The Set of invalid sub tags for the {@link HTMLTag}</td>
+	 *         <td>Defaults to an empty Set</td>
 	 *     </tr>
 	 * </table>
 	 *
@@ -436,6 +461,28 @@ public class HTMLTag implements HTMLTagConstants{
 		}
 		
 		/**
+		 * Adds the given attribute name to the whitelist
+		 *
+		 * @param attribute A valid attribute for the {@link HTMLTag}
+		 * @return this, to continue building
+		 */
+		public HTMLTagBuilder validAttribute(String attribute){
+			this.attributeWhitelist.add(attribute);
+			return this;
+		}
+		
+		/**
+		 * Sets the attributes whitelist to the given Set
+		 *
+		 * @param attributeWhitelist The Set of valid attributes for the {@link HTMLTag}
+		 * @return this, to continue building
+		 */
+		public HTMLTagBuilder attributeWhitelist(Set<String> attributeWhitelist){
+			this.attributeWhitelist = attributeWhitelist;
+			return this;
+		}
+		
+		/**
 		 * Sets it so the {@link HTMLTag} will have a closing tag
 		 *
 		 * @return this, to continue building
@@ -465,6 +512,50 @@ public class HTMLTag implements HTMLTagConstants{
 		}
 		
 		/**
+		 * Adds the sub tag to the Set of valid sub tags for the {@link HTMLTag}
+		 *
+		 * @param validSubTag A valid sub tag for the {@link HTMLTag}
+		 * @return this, to continue building
+		 */
+		public HTMLTagBuilder validSubTag(String validSubTag){
+			this.subTagWhitelist.add(validSubTag);
+			return this;
+		}
+		
+		/**
+		 * Sets the Set of valid sub tags for the {@link HTMLTag}
+		 *
+		 * @param subTagWhitelist The Set of valid sub tags for the {@link HTMLTag}
+		 * @return this, to continue building
+		 */
+		public HTMLTagBuilder subTagWhitelist(Set<String> subTagWhitelist){
+			this.subTagWhitelist = subTagWhitelist;
+			return this;
+		}
+		
+		/**
+		 * Adds the sub tag to the Set of invalid sub tags for the {@link HTMLTag}
+		 *
+		 * @param invalidSubTag An invalid sub tag for the {@link HTMLTag}
+		 * @return this, to continue building
+		 */
+		public HTMLTagBuilder invalidSubTag(String invalidSubTag){
+			this.subTagBlacklist.add(invalidSubTag);
+			return this;
+		}
+		
+		/**
+		 * Sets the Set of invalid sub tags for the {@link HTMLTag}
+		 *
+		 * @param subTagBlacklist The Set of invalid sub tags for the {@link HTMLTag}
+		 * @return this, to continue building
+		 */
+		public HTMLTagBuilder subTagBlacklist(Set<String> subTagBlacklist){
+			this.subTagBlacklist = subTagBlacklist;
+			return this;
+		}
+		
+		/**
 		 * Checks for any errors in the set parameters and throws a {@link IllegalArgumentException} if any errors
 		 * are found
 		 */
@@ -487,7 +578,7 @@ public class HTMLTag implements HTMLTagConstants{
 		public HTMLTag build(){
 			checkForErrors();
 			
-			return new HTMLTag(tagName, attributes, closingTag);
+			return new HTMLTag(tagName, attributes, attributeWhitelist, closingTag, subTagWhitelist, subTagBlacklist);
 		}
 	}
 	
@@ -495,20 +586,34 @@ public class HTMLTag implements HTMLTagConstants{
 	private final String tagName;
 	/** The Map of attributes in this {@link HTMLTag} */
 	private final Map<String, String> attributes;
+	/** The Set of valid attributes in this {@link HTMLTag} */
+	private final Set<String> attributeWhitelist;
 	/** Whether to include a closing tag for this {@link HTMLTag} or not */
 	private final boolean closingTag;
+	/** The Set of valid tags under this {@link HTMLTag} */
+	private final Set<String> subTagWhitelist;
+	/** The Set of invalid tags under this {@link HTMLTag} */
+	private final Set<String> subTagBlacklist;
 	
 	/**
 	 * Constructs an {@link HTMLTag} with the given parameters
 	 *
 	 * @param tagName The name of this {@link HTMLTag}
 	 * @param attributes The Map of attributes in this {@link HTMLTag}
+	 * @param attributeWhitelist The Set of valid attributes in this {@link HTMLTag}
 	 * @param closingTag Whether to include a closing tag for this {@link HTMLTag} or not
+	 * @param subTagWhitelist The Set of valid tags under this {@link HTMLTag}
+	 * @param subTagBlacklist The Set of invalid tags under this {@link HTMLTag}
 	 */
-	protected HTMLTag(String tagName, Map<String, String> attributes, boolean closingTag){
+	protected HTMLTag(
+			String tagName, Map<String, String> attributes, Set<String> attributeWhitelist, boolean closingTag,
+			Set<String> subTagWhitelist, Set<String> subTagBlacklist){
 		this.tagName = tagName;
 		this.attributes = attributes;
+		this.attributeWhitelist = attributeWhitelist;
 		this.closingTag = closingTag;
+		this.subTagWhitelist = subTagWhitelist;
+		this.subTagBlacklist = subTagBlacklist;
 	}
 	
 	/**
@@ -533,10 +638,31 @@ public class HTMLTag implements HTMLTagConstants{
 	}
 	
 	/**
+	 * @return The Set of valid attributes in this {@link HTMLTag}
+	 */
+	public Set<String> getAttributeWhitelist(){
+		return attributeWhitelist;
+	}
+	
+	/**
 	 * @return Whether to include a closing tag for this {@link HTMLTag} or not
 	 */
 	public boolean hasClosingTag(){
 		return closingTag;
+	}
+	
+	/**
+	 * @return The Set of valid tags under this {@link HTMLTag}
+	 */
+	public Set<String> getSubTagWhitelist(){
+		return subTagWhitelist;
+	}
+	
+	/**
+	 * @return The Set of invalid tags under this {@link HTMLTag}
+	 */
+	public Set<String> getSubTagBlacklist(){
+		return subTagBlacklist;
 	}
 	
 	/**

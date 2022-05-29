@@ -4,6 +4,7 @@ import org.junit.jupiter.api.Test;
 
 import java.util.HashMap;
 import java.util.Map;
+import java.util.Set;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertNotNull;
@@ -11,13 +12,38 @@ import static org.junit.jupiter.api.Assertions.assertNull;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 
 public abstract class BaseHTMLTagTest implements HTMLTagConstants, DefaultTagTestValues{
+	/** The name to use for the {@link HTMLTag} */
 	protected String tagName;
+	/** The Set of valid attributes for the {@link HTMLTag} */
+	protected Set<String> attributeWhitelist;
+	/** Whether to include a closing tag for the {@link HTMLTag} or not */
 	protected boolean closingTag;
+	/** The Set of valid sub tags for the {@link HTMLTag} */
+	protected Set<String> subTagWhitelist;
+	/** The Set of invalid sub tags for the {@link HTMLTag} */
+	protected Set<String> subTagBlacklist;
+	/** A {@link HTMLTag.BaseHTMLTagBuilder builder} to use to make a default version of the {@link HTMLTag} */
 	protected HTMLTag.BaseHTMLTagBuilder defaultBuilder;
 	
-	protected BaseHTMLTagTest(String tagName, boolean closingTag, HTMLTag.BaseHTMLTagBuilder defaultBuilder){
+	/**
+	 * Constructs a new {@link BaseHTMLTagTest} using the given parameters
+	 *
+	 * @param tagName The name to use for the {@link HTMLTag}
+	 * @param attributeWhitelist The Set of valid attributes for the {@link HTMLTag}
+	 * @param closingTag Whether to include a closing tag for the {@link HTMLTag} or not
+	 * @param subTagWhitelist The Set of valid sub tags for the {@link HTMLTag}
+	 * @param subTagBlacklist The Set of invalid sub tags for the {@link HTMLTag}
+	 * @param defaultBuilder A {@link HTMLTag.BaseHTMLTagBuilder builder} to use to make a default version of the {@link HTMLTag}
+	 */
+	protected BaseHTMLTagTest(
+			String tagName, Set<String> attributeWhitelist, boolean closingTag,
+			Set<String> subTagWhitelist, Set<String> subTagBlacklist,
+			HTMLTag.BaseHTMLTagBuilder defaultBuilder){
 		this.tagName = tagName;
+		this.attributeWhitelist = attributeWhitelist;
 		this.closingTag = closingTag;
+		this.subTagWhitelist = subTagWhitelist;
+		this.subTagBlacklist = subTagBlacklist;
 		this.defaultBuilder = defaultBuilder;
 	}
 	
@@ -296,12 +322,39 @@ public abstract class BaseHTMLTagTest implements HTMLTagConstants, DefaultTagTes
 	}
 	
 	/**
+	 * Test that the attributes whitelist is correct
+	 */
+	@Test
+	public void testAttributeWhitelist(){
+		HTMLTag tag = defaultBuilder.build();
+		assertEquals(attributeWhitelist, tag.getAttributeWhitelist());
+	}
+	
+	/**
 	 * Test that closing tag is set properly
 	 */
 	@Test
 	public void testSetClosingTag(){
 		HTMLTag tag = defaultBuilder.build();
 		assertEquals(closingTag, tag.hasClosingTag());
+	}
+	
+	/**
+	 * Test that the sub tag whitelist is correct
+	 */
+	@Test
+	public void testSubTagWhitelist(){
+		HTMLTag tag = defaultBuilder.build();
+		assertEquals(subTagWhitelist, tag.getSubTagWhitelist());
+	}
+	
+	/**
+	 * Test that the sub tag blacklist is correct
+	 */
+	@Test
+	public void testSubTagBlacklist(){
+		HTMLTag tag = defaultBuilder.build();
+		assertEquals(subTagBlacklist, tag.getSubTagBlacklist());
 	}
 	
 	/**

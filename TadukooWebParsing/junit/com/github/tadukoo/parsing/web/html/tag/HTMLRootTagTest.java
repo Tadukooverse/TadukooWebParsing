@@ -1,5 +1,6 @@
 package com.github.tadukoo.parsing.web.html.tag;
 
+import com.github.tadukoo.util.SetUtil;
 import org.junit.jupiter.api.Test;
 
 import java.util.Map;
@@ -10,7 +11,8 @@ import static org.junit.jupiter.api.Assertions.assertTrue;
 public class HTMLRootTagTest extends BaseHTMLTagTest{
 	
 	public HTMLRootTagTest(){
-		super(HTML_ROOT_TAG_NAME, true, HTMLRootTag.builder());
+		super(HTML_ROOT_TAG_NAME, GLOBAL_ATTRIBUTE_WHITELIST, true,
+				SetUtil.createSet(HTML_HEAD_TAG_NAME), SetUtil.createSet(HTML_ROOT_TAG_NAME), HTMLRootTag.builder());
 	}
 	
 	@Test
