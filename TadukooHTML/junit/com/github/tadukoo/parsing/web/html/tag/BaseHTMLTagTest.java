@@ -1,5 +1,7 @@
 package com.github.tadukoo.parsing.web.html.tag;
 
+import com.github.tadukoo.util.map.MapUtil;
+import com.github.tadukoo.util.tuple.Pair;
 import org.junit.jupiter.api.Test;
 
 import java.util.HashMap;
@@ -8,7 +10,6 @@ import java.util.Set;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertNotNull;
-import static org.junit.jupiter.api.Assertions.assertNull;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 
 public abstract class BaseHTMLTagTest implements HTMLTagConstants, DefaultTagTestValues{
@@ -55,6 +56,100 @@ public abstract class BaseHTMLTagTest implements HTMLTagConstants, DefaultTagTes
 	}
 	
 	/**
+	 * @return The {@link #defaultBuilder} with all the attributes set
+	 */
+	protected HTMLTag.BaseHTMLTagBuilder setAllAttributes(){
+		return wipeAttributes()
+				.accesskey(ACCESS_KEY_TEST_VALUE)
+				.classAttribute(CLASS_TEST_VALUE)
+				.contenteditable(CONTENT_EDITABLE_TEST_VALUE)
+				.data(DATA_TEST_KEY_NAME, DATA_TEST_VALUE)
+				.dir(DIR_TEST_VALUE)
+				.draggable(DRAGGABLE_TEST_VALUE)
+				.hidden()
+				.id(ID_TEST_VALUE)
+				.lang(LANG_TEST_VALUE)
+				.spellcheck(SPELLCHECK_TEST_VALUE)
+				.style(STYLE_TEST_VALUE)
+				.tabindex(TAB_INDEX_TEST_VALUE)
+				.title(TITLE_TEST_VALUE)
+				.translate(TRANSLATE_TEST_VALUE)
+				.ondrag(SCRIPT_TEST_VALUE)
+				.ondragend(SCRIPT_TEST_VALUE)
+				.ondragenter(SCRIPT_TEST_VALUE)
+				.ondragleave(SCRIPT_TEST_VALUE)
+				.ondragover(SCRIPT_TEST_VALUE)
+				.ondragstart(SCRIPT_TEST_VALUE)
+				.ondrop(SCRIPT_TEST_VALUE)
+				.oncopy(SCRIPT_TEST_VALUE)
+				.oncut(SCRIPT_TEST_VALUE)
+				.onpaste(SCRIPT_TEST_VALUE)
+				.attribute(TEST_CUSTOM_ATTR_NAME, TEST_CUSTOM_ATTR_VALUE);
+	}
+	
+	/**
+	 * @return A Map of all the attributes that should be set on the {@link HTMLTag}
+	 */
+	protected Map<String, String> makeAllAttributesMap(){
+		return MapUtil.createMap(Pair.of(ACCESS_KEY_ATTRIBUTE_NAME, ACCESS_KEY_TEST_VALUE),
+				Pair.of(CLASS_ATTRIBUTE_NAME, CLASS_TEST_VALUE),
+				Pair.of(CONTENT_EDITABLE_ATTRIBUTE_NAME, CONTENT_EDITABLE_TEST_VALUE),
+				Pair.of(DATA_ATTRIBUTE_NAME_PREFIX + DATA_TEST_KEY_NAME, DATA_TEST_VALUE),
+				Pair.of(DIR_ATTRIBUTE_NAME, DIR_TEST_VALUE),
+				Pair.of(DRAGGABLE_ATTRIBUTE_NAME, DRAGGABLE_TEST_VALUE),
+				Pair.of(HIDDEN_ATTRIBUTE_NAME, null),
+				Pair.of(ID_ATTRIBUTE_NAME, ID_TEST_VALUE),
+				Pair.of(LANG_ATTRIBUTE_NAME, LANG_TEST_VALUE),
+				Pair.of(SPELLCHECK_ATTRIBUTE_NAME, SPELLCHECK_TEST_VALUE),
+				Pair.of(STYLE_ATTRIBUTE_NAME, STYLE_TEST_VALUE),
+				Pair.of(TAB_INDEX_ATTRIBUTE_NAME, TAB_INDEX_TEST_VALUE),
+				Pair.of(TITLE_ATTRIBUTE_NAME, TITLE_TEST_VALUE),
+				Pair.of(TRANSLATE_ATTRIBUTE_NAME, TRANSLATE_TEST_VALUE),
+				Pair.of(TEST_CUSTOM_ATTR_NAME, TEST_CUSTOM_ATTR_VALUE),
+				Pair.of(ON_DRAG_ATTRIBUTE_NAME, SCRIPT_TEST_VALUE),
+				Pair.of(ON_DRAG_END_ATTRIBUTE_NAME, SCRIPT_TEST_VALUE),
+				Pair.of(ON_DRAG_ENTER_ATTRIBUTE_NAME, SCRIPT_TEST_VALUE),
+				Pair.of(ON_DRAG_LEAVE_ATTRIBUTE_NAME, SCRIPT_TEST_VALUE),
+				Pair.of(ON_DRAG_OVER_ATTRIBUTE_NAME, SCRIPT_TEST_VALUE),
+				Pair.of(ON_DRAG_START_ATTRIBUTE_NAME, SCRIPT_TEST_VALUE),
+				Pair.of(ON_DROP_ATTRIBUTE_NAME, SCRIPT_TEST_VALUE),
+				Pair.of(ON_COPY_ATTRIBUTE_NAME, SCRIPT_TEST_VALUE),
+				Pair.of(ON_CUT_ATTRIBUTE_NAME, SCRIPT_TEST_VALUE),
+				Pair.of(ON_PASTE_ATTRIBUTE_NAME, SCRIPT_TEST_VALUE));
+	}
+	
+	/**
+	 * @return A String containing all the attributes with their set values
+	 */
+	protected String makeAllAttributesString(){
+		return ACCESS_KEY_ATTRIBUTE_NAME + "=\"" + ACCESS_KEY_TEST_VALUE + "\" " +
+				CLASS_ATTRIBUTE_NAME + "=\"" + CLASS_TEST_VALUE + "\" " +
+				CONTENT_EDITABLE_ATTRIBUTE_NAME + "=\"" + CONTENT_EDITABLE_TEST_VALUE + "\" " +
+				DATA_ATTRIBUTE_NAME_PREFIX + DATA_TEST_KEY_NAME + "=\"" + DATA_TEST_VALUE + "\" " +
+				DIR_ATTRIBUTE_NAME + "=\"" + DIR_TEST_VALUE + "\" " +
+				DRAGGABLE_ATTRIBUTE_NAME + "=\"" + DRAGGABLE_TEST_VALUE + "\" " +
+				HIDDEN_ATTRIBUTE_NAME + " " +
+				ID_ATTRIBUTE_NAME + "=\"" + ID_TEST_VALUE + "\" " +
+				LANG_ATTRIBUTE_NAME + "=\"" + LANG_TEST_VALUE + "\" " +
+				ON_COPY_ATTRIBUTE_NAME + "=\"" + SCRIPT_TEST_VALUE + "\" " +
+				ON_CUT_ATTRIBUTE_NAME + "=\"" + SCRIPT_TEST_VALUE + "\" " +
+				ON_DRAG_ATTRIBUTE_NAME + "=\"" + SCRIPT_TEST_VALUE + "\" " +
+				ON_DRAG_END_ATTRIBUTE_NAME + "=\"" + SCRIPT_TEST_VALUE + "\" " +
+				ON_DRAG_ENTER_ATTRIBUTE_NAME + "=\"" + SCRIPT_TEST_VALUE + "\" " +
+				ON_DRAG_LEAVE_ATTRIBUTE_NAME + "=\"" + SCRIPT_TEST_VALUE + "\" " +
+				ON_DRAG_OVER_ATTRIBUTE_NAME + "=\"" + SCRIPT_TEST_VALUE + "\" " +
+				ON_DRAG_START_ATTRIBUTE_NAME + "=\"" + SCRIPT_TEST_VALUE + "\" " +
+				ON_DROP_ATTRIBUTE_NAME + "=\"" + SCRIPT_TEST_VALUE + "\" " +
+				ON_PASTE_ATTRIBUTE_NAME + "=\"" + SCRIPT_TEST_VALUE + "\" " +
+				SPELLCHECK_ATTRIBUTE_NAME + "=\"" + SPELLCHECK_TEST_VALUE + "\" " +
+				STYLE_ATTRIBUTE_NAME + "=\"" + STYLE_TEST_VALUE + "\" " +
+				TAB_INDEX_ATTRIBUTE_NAME + "=\"" + TAB_INDEX_TEST_VALUE + "\" " +
+				TEST_CUSTOM_ATTR_NAME + "=\"" + TEST_CUSTOM_ATTR_VALUE + "\" " +
+				TITLE_ATTRIBUTE_NAME + "=\"" + TITLE_TEST_VALUE + "\" " +
+				TRANSLATE_ATTRIBUTE_NAME + "=\"" + TRANSLATE_TEST_VALUE + "\"";
+	}
+	
+	/**
 	 * Test that the tag name is set to the tag name specified in the constructor for this {@link BaseHTMLTagTest}
 	 */
 	@Test
@@ -86,15 +181,47 @@ public abstract class BaseHTMLTagTest implements HTMLTagConstants, DefaultTagTes
 	}
 	
 	/**
+	 * Given an {@link HTMLTag} already built with a single attribute set, verify that
+	 * the correct attribute is set and only that one is set
+	 *
+	 * @param tag The {@link HTMLTag} that should have the attribute set
+	 * @param attributeName The name of the attribute that should be set
+	 * @param value The value of the attribute that should be set
+	 */
+	protected void testSingleSetAttribute(HTMLTag tag, String attributeName, String value){
+		Map<String, String> attributes = tag.getAttributes();
+		assertEquals(1, attributes.size());
+		assertTrue(attributes.containsKey(attributeName));
+		assertEquals(value, attributes.get(attributeName));
+	}
+	
+	/**
+	 * Given an {@link HTMLTag} already built with many attributes set, verify that
+	 * the correct attributes are set and only those are set
+	 *
+	 * @param tag The {@link HTMLTag} that should have the attributes set
+	 * @param expectedAttributes A Map of the expected attributes and their expected values
+	 */
+	protected void testManySetAttributes(HTMLTag tag, Map<String, String> expectedAttributes){
+		Map<String, String> attributes = tag.getAttributes();
+		assertEquals(expectedAttributes.size(), attributes.size());
+		for(String key: expectedAttributes.keySet()){
+			assertTrue(attributes.containsKey(key));
+			assertEquals(expectedAttributes.get(key), attributes.get(key));
+		}
+	}
+	
+	/*
+	 * Global Attributes
+	 */
+	
+	/**
 	 * Test that the {@code accesskey} attribute can be set
 	 */
 	@Test
 	public void testSetAccessKeyAttribute(){
-		HTMLTag tag = wipeAttributes().accesskey(ACCESS_KEY_TEST_VALUE).build();
-		Map<String, String> attributes = tag.getAttributes();
-		assertEquals(1, attributes.size());
-		assertTrue(attributes.containsKey(ACCESS_KEY_ATTRIBUTE_NAME));
-		assertEquals(ACCESS_KEY_TEST_VALUE, attributes.get(ACCESS_KEY_ATTRIBUTE_NAME));
+		testSingleSetAttribute(wipeAttributes().accesskey(ACCESS_KEY_TEST_VALUE).build(),
+				ACCESS_KEY_ATTRIBUTE_NAME, ACCESS_KEY_TEST_VALUE);
 	}
 	
 	/**
@@ -102,11 +229,8 @@ public abstract class BaseHTMLTagTest implements HTMLTagConstants, DefaultTagTes
 	 */
 	@Test
 	public void testSetClassAttribute(){
-		HTMLTag tag = wipeAttributes().classAttribute(CLASS_TEST_VALUE).build();
-		Map<String, String> attributes = tag.getAttributes();
-		assertEquals(1, attributes.size());
-		assertTrue(attributes.containsKey(CLASS_ATTRIBUTE_NAME));
-		assertEquals(CLASS_TEST_VALUE, attributes.get(CLASS_ATTRIBUTE_NAME));
+		testSingleSetAttribute(wipeAttributes().classAttribute(CLASS_TEST_VALUE).build(),
+				CLASS_ATTRIBUTE_NAME, CLASS_TEST_VALUE);
 	}
 	
 	/**
@@ -114,11 +238,8 @@ public abstract class BaseHTMLTagTest implements HTMLTagConstants, DefaultTagTes
 	 */
 	@Test
 	public void testSetContentEditableAttribute(){
-		HTMLTag tag = wipeAttributes().contenteditable(CONTENT_EDITABLE_TEST_VALUE).build();
-		Map<String, String> attributes = tag.getAttributes();
-		assertEquals(1, attributes.size());
-		assertTrue(attributes.containsKey(CONTENT_EDITABLE_ATTRIBUTE_NAME));
-		assertEquals(CONTENT_EDITABLE_TEST_VALUE, attributes.get(CONTENT_EDITABLE_ATTRIBUTE_NAME));
+		testSingleSetAttribute(wipeAttributes().contenteditable(CONTENT_EDITABLE_TEST_VALUE).build(),
+				CONTENT_EDITABLE_ATTRIBUTE_NAME, CONTENT_EDITABLE_TEST_VALUE);
 	}
 	
 	/**
@@ -126,11 +247,8 @@ public abstract class BaseHTMLTagTest implements HTMLTagConstants, DefaultTagTes
 	 */
 	@Test
 	public void testSetDataAttribute(){
-		HTMLTag tag = wipeAttributes().data(DATA_TEST_KEY_NAME, DATA_TEST_VALUE).build();
-		Map<String, String> attributes = tag.getAttributes();
-		assertEquals(1, attributes.size());
-		assertTrue(attributes.containsKey(DATA_ATTRIBUTE_NAME_PREFIX + DATA_TEST_KEY_NAME));
-		assertEquals(DATA_TEST_VALUE, attributes.get(DATA_ATTRIBUTE_NAME_PREFIX + DATA_TEST_KEY_NAME));
+		testSingleSetAttribute(wipeAttributes().data(DATA_TEST_KEY_NAME, DATA_TEST_VALUE).build(),
+				DATA_ATTRIBUTE_NAME_PREFIX + DATA_TEST_KEY_NAME, DATA_TEST_VALUE);
 	}
 	
 	/**
@@ -138,11 +256,8 @@ public abstract class BaseHTMLTagTest implements HTMLTagConstants, DefaultTagTes
 	 */
 	@Test
 	public void testSetDirAttribute(){
-		HTMLTag tag = wipeAttributes().dir(DIR_TEST_VALUE).build();
-		Map<String, String> attributes = tag.getAttributes();
-		assertEquals(1, attributes.size());
-		assertTrue(attributes.containsKey(DIR_ATTRIBUTE_NAME));
-		assertEquals(DIR_TEST_VALUE, attributes.get(DIR_ATTRIBUTE_NAME));
+		testSingleSetAttribute(wipeAttributes().dir(DIR_TEST_VALUE).build(),
+				DIR_ATTRIBUTE_NAME, DIR_TEST_VALUE);
 	}
 	
 	/**
@@ -150,11 +265,8 @@ public abstract class BaseHTMLTagTest implements HTMLTagConstants, DefaultTagTes
 	 */
 	@Test
 	public void testSetDraggableAttribute(){
-		HTMLTag tag = wipeAttributes().draggable(DRAGGABLE_TEST_VALUE).build();
-		Map<String, String> attributes = tag.getAttributes();
-		assertEquals(1, attributes.size());
-		assertTrue(attributes.containsKey(DRAGGABLE_ATTRIBUTE_NAME));
-		assertEquals(DRAGGABLE_TEST_VALUE, attributes.get(DRAGGABLE_ATTRIBUTE_NAME));
+		testSingleSetAttribute(wipeAttributes().draggable(DRAGGABLE_TEST_VALUE).build(),
+				DRAGGABLE_ATTRIBUTE_NAME, DRAGGABLE_TEST_VALUE);
 	}
 	
 	/**
@@ -162,11 +274,8 @@ public abstract class BaseHTMLTagTest implements HTMLTagConstants, DefaultTagTes
 	 */
 	@Test
 	public void testSetHiddenAttribute(){
-		HTMLTag tag = wipeAttributes().hidden().build();
-		Map<String, String> attributes = tag.getAttributes();
-		assertEquals(1, attributes.size());
-		assertTrue(attributes.containsKey(HIDDEN_ATTRIBUTE_NAME));
-		assertNull(attributes.get(HIDDEN_ATTRIBUTE_NAME));
+		testSingleSetAttribute(wipeAttributes().hidden().build(),
+				HIDDEN_ATTRIBUTE_NAME, null);
 	}
 	
 	/**
@@ -174,11 +283,8 @@ public abstract class BaseHTMLTagTest implements HTMLTagConstants, DefaultTagTes
 	 */
 	@Test
 	public void testSetIDAttribute(){
-		HTMLTag tag = wipeAttributes().id(ID_TEST_VALUE).build();
-		Map<String, String> attributes = tag.getAttributes();
-		assertEquals(1, attributes.size());
-		assertTrue(attributes.containsKey(ID_ATTRIBUTE_NAME));
-		assertEquals(ID_TEST_VALUE, attributes.get(ID_ATTRIBUTE_NAME));
+		testSingleSetAttribute(wipeAttributes().id(ID_TEST_VALUE).build(),
+				ID_ATTRIBUTE_NAME, ID_TEST_VALUE);
 	}
 	
 	/**
@@ -186,11 +292,8 @@ public abstract class BaseHTMLTagTest implements HTMLTagConstants, DefaultTagTes
 	 */
 	@Test
 	public void testSetLangAttribute(){
-		HTMLTag tag = wipeAttributes().lang(LANG_TEST_VALUE).build();
-		Map<String, String> attributes = tag.getAttributes();
-		assertEquals(1, attributes.size());
-		assertTrue(attributes.containsKey(LANG_ATTRIBUTE_NAME));
-		assertEquals(LANG_TEST_VALUE, attributes.get(LANG_ATTRIBUTE_NAME));
+		testSingleSetAttribute(wipeAttributes().lang(LANG_TEST_VALUE).build(),
+				LANG_ATTRIBUTE_NAME, LANG_TEST_VALUE);
 	}
 	
 	/**
@@ -198,11 +301,8 @@ public abstract class BaseHTMLTagTest implements HTMLTagConstants, DefaultTagTes
 	 */
 	@Test
 	public void testSetSpellcheckAttribute(){
-		HTMLTag tag = wipeAttributes().spellcheck(SPELLCHECK_TEST_VALUE).build();
-		Map<String, String> attributes = tag.getAttributes();
-		assertEquals(1, attributes.size());
-		assertTrue(attributes.containsKey(SPELLCHECK_ATTRIBUTE_NAME));
-		assertEquals(SPELLCHECK_TEST_VALUE, attributes.get(SPELLCHECK_ATTRIBUTE_NAME));
+		testSingleSetAttribute(wipeAttributes().spellcheck(SPELLCHECK_TEST_VALUE).build(),
+				SPELLCHECK_ATTRIBUTE_NAME, SPELLCHECK_TEST_VALUE);
 	}
 	
 	/**
@@ -210,11 +310,8 @@ public abstract class BaseHTMLTagTest implements HTMLTagConstants, DefaultTagTes
 	 */
 	@Test
 	public void testSetStyleAttribute(){
-		HTMLTag tag = wipeAttributes().style(STYLE_TEST_VALUE).build();
-		Map<String, String> attributes = tag.getAttributes();
-		assertEquals(1, attributes.size());
-		assertTrue(attributes.containsKey(STYLE_ATTRIBUTE_NAME));
-		assertEquals(STYLE_TEST_VALUE, attributes.get(STYLE_ATTRIBUTE_NAME));
+		testSingleSetAttribute(wipeAttributes().style(STYLE_TEST_VALUE).build(),
+				STYLE_ATTRIBUTE_NAME, STYLE_TEST_VALUE);
 	}
 	
 	/**
@@ -222,11 +319,8 @@ public abstract class BaseHTMLTagTest implements HTMLTagConstants, DefaultTagTes
 	 */
 	@Test
 	public void testSetTabIndexAttribute(){
-		HTMLTag tag = wipeAttributes().tabindex(TAB_INDEX_TEST_VALUE).build();
-		Map<String, String> attributes = tag.getAttributes();
-		assertEquals(1, attributes.size());
-		assertTrue(attributes.containsKey(TAB_INDEX_ATTRIBUTE_NAME));
-		assertEquals(TAB_INDEX_TEST_VALUE, attributes.get(TAB_INDEX_ATTRIBUTE_NAME));
+		testSingleSetAttribute(wipeAttributes().tabindex(TAB_INDEX_TEST_VALUE).build(),
+				TAB_INDEX_ATTRIBUTE_NAME, TAB_INDEX_TEST_VALUE);
 	}
 	
 	/**
@@ -234,11 +328,8 @@ public abstract class BaseHTMLTagTest implements HTMLTagConstants, DefaultTagTes
 	 */
 	@Test
 	public void testSetTitleAttribute(){
-		HTMLTag tag = wipeAttributes().title(TITLE_TEST_VALUE).build();
-		Map<String, String> attributes = tag.getAttributes();
-		assertEquals(1, attributes.size());
-		assertTrue(attributes.containsKey(TITLE_ATTRIBUTE_NAME));
-		assertEquals(TITLE_TEST_VALUE, attributes.get(TITLE_ATTRIBUTE_NAME));
+		testSingleSetAttribute(wipeAttributes().title(TITLE_TEST_VALUE).build(),
+				TITLE_ATTRIBUTE_NAME, TITLE_TEST_VALUE);
 	}
 	
 	/**
@@ -246,12 +337,111 @@ public abstract class BaseHTMLTagTest implements HTMLTagConstants, DefaultTagTes
 	 */
 	@Test
 	public void testSetTranslateAttribute(){
-		HTMLTag tag = wipeAttributes().translate(TRANSLATE_TEST_VALUE).build();
-		Map<String, String> attributes = tag.getAttributes();
-		assertEquals(1, attributes.size());
-		assertTrue(attributes.containsKey(TRANSLATE_ATTRIBUTE_NAME));
-		assertEquals(TRANSLATE_TEST_VALUE, attributes.get(TRANSLATE_ATTRIBUTE_NAME));
+		testSingleSetAttribute(wipeAttributes().translate(TRANSLATE_TEST_VALUE).build(),
+				TRANSLATE_ATTRIBUTE_NAME, TRANSLATE_TEST_VALUE);
 	}
+	
+	/*
+	 * Global Drag Event Attributes
+	 */
+	
+	/**
+	 * Test that the {@code ondrag} attribute can be set
+	 */
+	@Test
+	public void testSetOnDragAttribute(){
+		testSingleSetAttribute(wipeAttributes().ondrag(SCRIPT_TEST_VALUE).build(),
+				ON_DRAG_ATTRIBUTE_NAME, SCRIPT_TEST_VALUE);
+	}
+	
+	/**
+	 * Test that the {@code ondragend} attribute can be set
+	 */
+	@Test
+	public void testSetOnDragEndAttribute(){
+		testSingleSetAttribute(wipeAttributes().ondragend(SCRIPT_TEST_VALUE).build(),
+				ON_DRAG_END_ATTRIBUTE_NAME, SCRIPT_TEST_VALUE);
+	}
+	
+	/**
+	 * Test that the {@code ondragenter} attribute can be set
+	 */
+	@Test
+	public void testSetOnDragEnterAttribute(){
+		testSingleSetAttribute(wipeAttributes().ondragenter(SCRIPT_TEST_VALUE).build(),
+				ON_DRAG_ENTER_ATTRIBUTE_NAME, SCRIPT_TEST_VALUE);
+	}
+	
+	/**
+	 * Test that the {@code ondragleave} attribute can be set
+	 */
+	@Test
+	public void testSetOnDragLeaveAttribute(){
+		testSingleSetAttribute(wipeAttributes().ondragleave(SCRIPT_TEST_VALUE).build(),
+				ON_DRAG_LEAVE_ATTRIBUTE_NAME, SCRIPT_TEST_VALUE);
+	}
+	
+	/**
+	 * Test that the {@code ondragover} attribute can be set
+	 */
+	@Test
+	public void testSetOnDragOverAttribute(){
+		testSingleSetAttribute(wipeAttributes().ondragover(SCRIPT_TEST_VALUE).build(),
+				ON_DRAG_OVER_ATTRIBUTE_NAME, SCRIPT_TEST_VALUE);
+	}
+	
+	/**
+	 * Test that the {@code ondragstart} attribute can be set
+	 */
+	@Test
+	public void testSetOnDragStartAttribute(){
+		testSingleSetAttribute(wipeAttributes().ondragstart(SCRIPT_TEST_VALUE).build(),
+				ON_DRAG_START_ATTRIBUTE_NAME, SCRIPT_TEST_VALUE);
+	}
+	
+	/**
+	 * Test that the {@code ondrop} attribute can be set
+	 */
+	@Test
+	public void testSetOnDropAttribute(){
+		testSingleSetAttribute(wipeAttributes().ondrop(SCRIPT_TEST_VALUE).build(),
+				ON_DROP_ATTRIBUTE_NAME, SCRIPT_TEST_VALUE);
+	}
+	
+	/*
+	 * Global Clipboard Attributes
+	 */
+	
+	/**
+	 * Test that the {@code oncopy} attribute can be set
+	 */
+	@Test
+	public void testSetOnCopyAttribute(){
+		testSingleSetAttribute(wipeAttributes().oncopy(SCRIPT_TEST_VALUE).build(),
+				ON_COPY_ATTRIBUTE_NAME, SCRIPT_TEST_VALUE);
+	}
+	
+	/**
+	 * Test that the {@code oncut} attribute can be set
+	 */
+	@Test
+	public void testSetOnCutAttribute(){
+		testSingleSetAttribute(wipeAttributes().oncut(SCRIPT_TEST_VALUE).build(),
+				ON_CUT_ATTRIBUTE_NAME, SCRIPT_TEST_VALUE);
+	}
+	
+	/**
+	 * Test that the {@code onpaste} attribute can be set
+	 */
+	@Test
+	public void testSetOnPasteAttribute(){
+		testSingleSetAttribute(wipeAttributes().onpaste(SCRIPT_TEST_VALUE).build(),
+				ON_PASTE_ATTRIBUTE_NAME, SCRIPT_TEST_VALUE);
+	}
+	
+	/*
+	 * Custom Attributes
+	 */
 	
 	/**
 	 * Test that you can set a single custom attribute
@@ -270,55 +460,8 @@ public abstract class BaseHTMLTagTest implements HTMLTagConstants, DefaultTagTes
 	 */
 	@Test
 	public void testSetAllAttributes(){
-		HTMLTag tag = wipeAttributes()
-				.accesskey(ACCESS_KEY_TEST_VALUE)
-				.classAttribute(CLASS_TEST_VALUE)
-				.contenteditable(CONTENT_EDITABLE_TEST_VALUE)
-				.data(DATA_TEST_KEY_NAME, DATA_TEST_VALUE)
-				.dir(DIR_TEST_VALUE)
-				.draggable(DRAGGABLE_TEST_VALUE)
-				.hidden()
-				.id(ID_TEST_VALUE)
-				.lang(LANG_TEST_VALUE)
-				.spellcheck(SPELLCHECK_TEST_VALUE)
-				.style(STYLE_TEST_VALUE)
-				.tabindex(TAB_INDEX_TEST_VALUE)
-				.title(TITLE_TEST_VALUE)
-				.translate(TRANSLATE_TEST_VALUE)
-				.attribute(TEST_CUSTOM_ATTR_NAME, TEST_CUSTOM_ATTR_VALUE)
-				.build();
-		Map<String, String> attributes = tag.getAttributes();
-		assertEquals(15, attributes.size());
-		assertTrue(attributes.containsKey(ACCESS_KEY_ATTRIBUTE_NAME));
-		assertEquals(ACCESS_KEY_TEST_VALUE, attributes.get(ACCESS_KEY_ATTRIBUTE_NAME));
-		assertTrue(attributes.containsKey(CLASS_ATTRIBUTE_NAME));
-		assertEquals(CLASS_TEST_VALUE, attributes.get(CLASS_ATTRIBUTE_NAME));
-		assertTrue(attributes.containsKey(CONTENT_EDITABLE_ATTRIBUTE_NAME));
-		assertEquals(CONTENT_EDITABLE_TEST_VALUE, attributes.get(CONTENT_EDITABLE_ATTRIBUTE_NAME));
-		assertTrue(attributes.containsKey(DATA_ATTRIBUTE_NAME_PREFIX + DATA_TEST_KEY_NAME));
-		assertEquals(DATA_TEST_VALUE, attributes.get(DATA_ATTRIBUTE_NAME_PREFIX + DATA_TEST_KEY_NAME));
-		assertTrue(attributes.containsKey(DIR_ATTRIBUTE_NAME));
-		assertEquals(DIR_TEST_VALUE, attributes.get(DIR_ATTRIBUTE_NAME));
-		assertTrue(attributes.containsKey(DRAGGABLE_ATTRIBUTE_NAME));
-		assertEquals(DRAGGABLE_TEST_VALUE, attributes.get(DRAGGABLE_ATTRIBUTE_NAME));
-		assertTrue(attributes.containsKey(HIDDEN_ATTRIBUTE_NAME));
-		assertNull(attributes.get(HIDDEN_ATTRIBUTE_NAME));
-		assertTrue(attributes.containsKey(ID_ATTRIBUTE_NAME));
-		assertEquals(ID_TEST_VALUE, attributes.get(ID_ATTRIBUTE_NAME));
-		assertTrue(attributes.containsKey(LANG_ATTRIBUTE_NAME));
-		assertEquals(LANG_TEST_VALUE, attributes.get(LANG_ATTRIBUTE_NAME));
-		assertTrue(attributes.containsKey(SPELLCHECK_ATTRIBUTE_NAME));
-		assertEquals(SPELLCHECK_TEST_VALUE, attributes.get(SPELLCHECK_ATTRIBUTE_NAME));
-		assertTrue(attributes.containsKey(STYLE_ATTRIBUTE_NAME));
-		assertEquals(STYLE_TEST_VALUE, attributes.get(STYLE_ATTRIBUTE_NAME));
-		assertTrue(attributes.containsKey(TAB_INDEX_ATTRIBUTE_NAME));
-		assertEquals(TAB_INDEX_TEST_VALUE, attributes.get(TAB_INDEX_ATTRIBUTE_NAME));
-		assertTrue(attributes.containsKey(TITLE_ATTRIBUTE_NAME));
-		assertEquals(TITLE_TEST_VALUE, attributes.get(TITLE_ATTRIBUTE_NAME));
-		assertTrue(attributes.containsKey(TRANSLATE_ATTRIBUTE_NAME));
-		assertEquals(TRANSLATE_TEST_VALUE, attributes.get(TRANSLATE_ATTRIBUTE_NAME));
-		assertTrue(attributes.containsKey(TEST_CUSTOM_ATTR_NAME));
-		assertEquals(TEST_CUSTOM_ATTR_VALUE, attributes.get(TEST_CUSTOM_ATTR_NAME));
+		testManySetAttributes(setAllAttributes().build(),
+				makeAllAttributesMap());
 	}
 	
 	/**
@@ -380,39 +523,9 @@ public abstract class BaseHTMLTagTest implements HTMLTagConstants, DefaultTagTes
 	 */
 	@Test
 	public void testOpeningTagAllAttributes(){
-		HTMLTag tag = wipeAttributes()
-				.accesskey(ACCESS_KEY_TEST_VALUE)
-				.classAttribute(CLASS_TEST_VALUE)
-				.contenteditable(CONTENT_EDITABLE_TEST_VALUE)
-				.data(DATA_TEST_KEY_NAME, DATA_TEST_VALUE)
-				.dir(DIR_TEST_VALUE)
-				.draggable(DRAGGABLE_TEST_VALUE)
-				.hidden()
-				.id(ID_TEST_VALUE)
-				.lang(LANG_TEST_VALUE)
-				.spellcheck(SPELLCHECK_TEST_VALUE)
-				.style(STYLE_TEST_VALUE)
-				.tabindex(TAB_INDEX_TEST_VALUE)
-				.title(TITLE_TEST_VALUE)
-				.translate(TRANSLATE_TEST_VALUE)
-				.attribute(TEST_CUSTOM_ATTR_NAME, TEST_CUSTOM_ATTR_VALUE)
-				.build();
+		HTMLTag tag = setAllAttributes().build();
 		assertEquals("<" + tagName + " " +
-				ACCESS_KEY_ATTRIBUTE_NAME + "=\"" + ACCESS_KEY_TEST_VALUE + "\" " +
-				CLASS_ATTRIBUTE_NAME + "=\"" + CLASS_TEST_VALUE + "\" " +
-				CONTENT_EDITABLE_ATTRIBUTE_NAME + "=\"" + CONTENT_EDITABLE_TEST_VALUE + "\" " +
-				DATA_ATTRIBUTE_NAME_PREFIX + DATA_TEST_KEY_NAME + "=\"" + DATA_TEST_VALUE + "\" " +
-				DIR_ATTRIBUTE_NAME + "=\"" + DIR_TEST_VALUE + "\" " +
-				DRAGGABLE_ATTRIBUTE_NAME + "=\"" + DRAGGABLE_TEST_VALUE + "\" " +
-				HIDDEN_ATTRIBUTE_NAME + " " +
-				ID_ATTRIBUTE_NAME + "=\"" + ID_TEST_VALUE + "\" " +
-				LANG_ATTRIBUTE_NAME + "=\"" + LANG_TEST_VALUE + "\" " +
-				SPELLCHECK_ATTRIBUTE_NAME + "=\"" + SPELLCHECK_TEST_VALUE + "\" " +
-				STYLE_ATTRIBUTE_NAME + "=\"" + STYLE_TEST_VALUE + "\" " +
-				TAB_INDEX_ATTRIBUTE_NAME + "=\"" + TAB_INDEX_TEST_VALUE + "\" " +
-				TEST_CUSTOM_ATTR_NAME + "=\"" + TEST_CUSTOM_ATTR_VALUE + "\" " +
-				TITLE_ATTRIBUTE_NAME + "=\"" + TITLE_TEST_VALUE + "\" " +
-				TRANSLATE_ATTRIBUTE_NAME + "=\"" + TRANSLATE_TEST_VALUE + "\"" +
+				makeAllAttributesString() +
 				">", tag.toOpeningTag());
 	}
 	
@@ -448,39 +561,9 @@ public abstract class BaseHTMLTagTest implements HTMLTagConstants, DefaultTagTes
 	 */
 	@Test
 	public void testToStringAllAttributes(){
-		HTMLTag tag = wipeAttributes()
-				.accesskey(ACCESS_KEY_TEST_VALUE)
-				.classAttribute(CLASS_TEST_VALUE)
-				.contenteditable(CONTENT_EDITABLE_TEST_VALUE)
-				.data(DATA_TEST_KEY_NAME, DATA_TEST_VALUE)
-				.dir(DIR_TEST_VALUE)
-				.draggable(DRAGGABLE_TEST_VALUE)
-				.hidden()
-				.id(ID_TEST_VALUE)
-				.lang(LANG_TEST_VALUE)
-				.spellcheck(SPELLCHECK_TEST_VALUE)
-				.style(STYLE_TEST_VALUE)
-				.tabindex(TAB_INDEX_TEST_VALUE)
-				.title(TITLE_TEST_VALUE)
-				.translate(TRANSLATE_TEST_VALUE)
-				.attribute(TEST_CUSTOM_ATTR_NAME, TEST_CUSTOM_ATTR_VALUE)
-				.build();
+		HTMLTag tag = setAllAttributes().build();
 		assertEquals("<" + tagName + " " +
-				ACCESS_KEY_ATTRIBUTE_NAME + "=\"" + ACCESS_KEY_TEST_VALUE + "\" " +
-				CLASS_ATTRIBUTE_NAME + "=\"" + CLASS_TEST_VALUE + "\" " +
-				CONTENT_EDITABLE_ATTRIBUTE_NAME + "=\"" + CONTENT_EDITABLE_TEST_VALUE + "\" " +
-				DATA_ATTRIBUTE_NAME_PREFIX + DATA_TEST_KEY_NAME + "=\"" + DATA_TEST_VALUE + "\" " +
-				DIR_ATTRIBUTE_NAME + "=\"" + DIR_TEST_VALUE + "\" " +
-				DRAGGABLE_ATTRIBUTE_NAME + "=\"" + DRAGGABLE_TEST_VALUE + "\" " +
-				HIDDEN_ATTRIBUTE_NAME + " " +
-				ID_ATTRIBUTE_NAME + "=\"" + ID_TEST_VALUE + "\" " +
-				LANG_ATTRIBUTE_NAME + "=\"" + LANG_TEST_VALUE + "\" " +
-				SPELLCHECK_ATTRIBUTE_NAME + "=\"" + SPELLCHECK_TEST_VALUE + "\" " +
-				STYLE_ATTRIBUTE_NAME + "=\"" + STYLE_TEST_VALUE + "\" " +
-				TAB_INDEX_ATTRIBUTE_NAME + "=\"" + TAB_INDEX_TEST_VALUE + "\" " +
-				TEST_CUSTOM_ATTR_NAME + "=\"" + TEST_CUSTOM_ATTR_VALUE + "\" " +
-				TITLE_ATTRIBUTE_NAME + "=\"" + TITLE_TEST_VALUE + "\" " +
-				TRANSLATE_ATTRIBUTE_NAME + "=\"" + TRANSLATE_TEST_VALUE + "\"" +
+				makeAllAttributesString() +
 				">"  + (closingTag?"</" + tagName + ">":""), tag.toString());
 	}
 }

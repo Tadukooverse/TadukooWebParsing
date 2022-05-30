@@ -14,7 +14,7 @@ import static org.junit.jupiter.api.Assertions.fail;
 public class HTMLTagTest extends BaseHTMLTagTest{
 	
 	public HTMLTagTest(){
-		super(TEST_TAG_NAME, GLOBAL_ATTRIBUTE_WHITELIST, true,
+		super(TEST_TAG_NAME, ALL_GLOBAL_ATTRIBUTE_WHITELIST, true,
 				SetUtil.createSet(), SetUtil.createSet(), HTMLTag.tagBuilder().tagName(TEST_TAG_NAME));
 	}
 	

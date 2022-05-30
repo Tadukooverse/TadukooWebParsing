@@ -16,6 +16,7 @@ public interface DefaultTagTestValues{
 	String TAB_INDEX_TEST_VALUE = "3";
 	String TITLE_TEST_VALUE = "nope";
 	String TRANSLATE_TEST_VALUE = "false";
+	String SCRIPT_TEST_VALUE = "myFunction(event)";
 	String TEST_CUSTOM_ATTR_NAME = "test";
 	String TEST_CUSTOM_ATTR_VALUE = "derp";
 }

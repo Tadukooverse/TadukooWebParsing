@@ -109,6 +109,74 @@ public class HTMLHeadTag extends HTMLTag{
 		}
 		
 		/*
+		 * Global Drag Event Attributes
+		 */
+		
+		/** {@inheritDoc} */
+		@Override
+		public HTMLHeadTagBuilder ondrag(String value){
+			return (HTMLHeadTagBuilder) super.ondrag(value);
+		}
+		
+		/** {@inheritDoc} */
+		@Override
+		public HTMLHeadTagBuilder ondragend(String value){
+			return (HTMLHeadTagBuilder) super.ondragend(value);
+		}
+		
+		/** {@inheritDoc} */
+		@Override
+		public HTMLHeadTagBuilder ondragenter(String value){
+			return (HTMLHeadTagBuilder) super.ondragenter(value);
+		}
+		
+		/** {@inheritDoc} */
+		@Override
+		public HTMLHeadTagBuilder ondragleave(String value){
+			return (HTMLHeadTagBuilder) super.ondragleave(value);
+		}
+		
+		/** {@inheritDoc} */
+		@Override
+		public HTMLHeadTagBuilder ondragover(String value){
+			return (HTMLHeadTagBuilder) super.ondragover(value);
+		}
+		
+		/** {@inheritDoc} */
+		@Override
+		public HTMLHeadTagBuilder ondragstart(String value){
+			return (HTMLHeadTagBuilder) super.ondragstart(value);
+		}
+		
+		/** {@inheritDoc} */
+		@Override
+		public HTMLHeadTagBuilder ondrop(String value){
+			return (HTMLHeadTagBuilder) super.ondrop(value);
+		}
+		
+		/*
+		 * Global Clipboard Attributes
+		 */
+		
+		/** {@inheritDoc} */
+		@Override
+		public HTMLHeadTagBuilder oncopy(String value){
+			return (HTMLHeadTagBuilder) super.oncopy(value);
+		}
+		
+		/** {@inheritDoc} */
+		@Override
+		public HTMLHeadTagBuilder oncut(String value){
+			return (HTMLHeadTagBuilder) super.oncut(value);
+		}
+		
+		/** {@inheritDoc} */
+		@Override
+		public HTMLHeadTagBuilder onpaste(String value){
+			return (HTMLHeadTagBuilder) super.onpaste(value);
+		}
+		
+		/*
 		 * Custom Attributes
 		 */
 		
