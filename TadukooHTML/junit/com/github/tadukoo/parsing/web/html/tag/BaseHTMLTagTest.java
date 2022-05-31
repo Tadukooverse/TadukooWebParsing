@@ -1,18 +1,25 @@
 package com.github.tadukoo.parsing.web.html.tag;
 
+import com.github.tadukoo.parsing.web.html.tag.builder.BaseHTMLTagBuilder;
+import com.github.tadukoo.util.ListUtil;
 import com.github.tadukoo.util.map.MapUtil;
 import com.github.tadukoo.util.tuple.Pair;
 import org.junit.jupiter.api.Test;
 
+import java.util.Collection;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 import java.util.Set;
+import java.util.stream.Collectors;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertNotNull;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 
-public abstract class BaseHTMLTagTest implements HTMLTagConstants, DefaultTagTestValues{
+@SuppressWarnings("unchecked")
+public abstract class BaseHTMLTagTest<Builder extends BaseHTMLTagBuilder>
+		implements HTMLTagConstants, DefaultTagTestValues{
 	/** The name to use for the {@link HTMLTag} */
 	protected String tagName;
 	/** The Set of valid attributes for the {@link HTMLTag} */
@@ -23,8 +30,8 @@ public abstract class BaseHTMLTagTest implements HTMLTagConstants, DefaultTagTes
 	protected Set<String> subTagWhitelist;
 	/** The Set of invalid sub tags for the {@link HTMLTag} */
 	protected Set<String> subTagBlacklist;
-	/** A {@link HTMLTag.BaseHTMLTagBuilder builder} to use to make a default version of the {@link HTMLTag} */
-	protected HTMLTag.BaseHTMLTagBuilder defaultBuilder;
+	/** A {@link BaseHTMLTagBuilder builder} to use to make a default version of the {@link HTMLTag} */
+	protected Builder defaultBuilder;
 	
 	/**
 	 * Constructs a new {@link BaseHTMLTagTest} using the given parameters
@@ -34,12 +41,12 @@ public abstract class BaseHTMLTagTest implements HTMLTagConstants, DefaultTagTes
 	 * @param closingTag Whether to include a closing tag for the {@link HTMLTag} or not
 	 * @param subTagWhitelist The Set of valid sub tags for the {@link HTMLTag}
 	 * @param subTagBlacklist The Set of invalid sub tags for the {@link HTMLTag}
-	 * @param defaultBuilder A {@link HTMLTag.BaseHTMLTagBuilder builder} to use to make a default version of the {@link HTMLTag}
+	 * @param defaultBuilder A {@link BaseHTMLTagBuilder builder} to use to make a default version of the {@link HTMLTag}
 	 */
 	protected BaseHTMLTagTest(
 			String tagName, Set<String> attributeWhitelist, boolean closingTag,
 			Set<String> subTagWhitelist, Set<String> subTagBlacklist,
-			HTMLTag.BaseHTMLTagBuilder defaultBuilder){
+			Builder defaultBuilder){
 		this.tagName = tagName;
 		this.attributeWhitelist = attributeWhitelist;
 		this.closingTag = closingTag;
@@ -51,15 +58,15 @@ public abstract class BaseHTMLTagTest implements HTMLTagConstants, DefaultTagTes
 	/**
 	 * @return The {@link #defaultBuilder} with the attributes wiped (useful for dealing with default attributes)
 	 */
-	protected HTMLTag.BaseHTMLTagBuilder wipeAttributes(){
-		return defaultBuilder.attributes(new HashMap<>());
+	protected Builder wipeAttributes(){
+		return (Builder) defaultBuilder.attributes(new HashMap<>());
 	}
 	
 	/**
 	 * @return The {@link #defaultBuilder} with all the attributes set
 	 */
-	protected HTMLTag.BaseHTMLTagBuilder setAllAttributes(){
-		return wipeAttributes()
+	protected Builder setAllAttributes(){
+		return (Builder) wipeAttributes()
 				.accesskey(ACCESS_KEY_TEST_VALUE)
 				.classAttribute(CLASS_TEST_VALUE)
 				.contenteditable(CONTENT_EDITABLE_TEST_VALUE)
@@ -84,6 +91,8 @@ public abstract class BaseHTMLTagTest implements HTMLTagConstants, DefaultTagTes
 				.oncopy(SCRIPT_TEST_VALUE)
 				.oncut(SCRIPT_TEST_VALUE)
 				.onpaste(SCRIPT_TEST_VALUE)
+				.oncontextmenu(SCRIPT_TEST_VALUE)
+				.onwheel(SCRIPT_TEST_VALUE)
 				.attribute(TEST_CUSTOM_ATTR_NAME, TEST_CUSTOM_ATTR_VALUE);
 	}
 	
@@ -115,38 +124,70 @@ public abstract class BaseHTMLTagTest implements HTMLTagConstants, DefaultTagTes
 				Pair.of(ON_DROP_ATTRIBUTE_NAME, SCRIPT_TEST_VALUE),
 				Pair.of(ON_COPY_ATTRIBUTE_NAME, SCRIPT_TEST_VALUE),
 				Pair.of(ON_CUT_ATTRIBUTE_NAME, SCRIPT_TEST_VALUE),
-				Pair.of(ON_PASTE_ATTRIBUTE_NAME, SCRIPT_TEST_VALUE));
+				Pair.of(ON_PASTE_ATTRIBUTE_NAME, SCRIPT_TEST_VALUE),
+				Pair.of(ON_CONTEXT_MENU_ATTRIBUTE_NAME, SCRIPT_TEST_VALUE),
+				Pair.of(ON_WHEEL_ATTRIBUTE_NAME, SCRIPT_TEST_VALUE));
+	}
+	
+	/**
+	 * @param attributeName The name of the attribute
+	 * @param value The value of the attribute (can be {@code null} to exclude)
+	 * @return The string representing a single attribute
+	 */
+	protected String makeSingleAttributeString(String attributeName, String value){
+		return attributeName + (value != null?"=\"" + value + "\"":"");
+	}
+	
+	/**
+	 * @return A list of all the attribute strings (for use in toOpeningTag and toString)
+	 */
+	protected List<String> getAllAttributeStrings(){
+		return ListUtil.createList(makeSingleAttributeString(ACCESS_KEY_ATTRIBUTE_NAME, ACCESS_KEY_TEST_VALUE ),
+				makeSingleAttributeString(CLASS_ATTRIBUTE_NAME, CLASS_TEST_VALUE),
+				makeSingleAttributeString(CONTENT_EDITABLE_ATTRIBUTE_NAME, CONTENT_EDITABLE_TEST_VALUE),
+				makeSingleAttributeString(DATA_ATTRIBUTE_NAME_PREFIX + DATA_TEST_KEY_NAME, DATA_TEST_VALUE),
+				makeSingleAttributeString(DIR_ATTRIBUTE_NAME, DIR_TEST_VALUE),
+				makeSingleAttributeString(DRAGGABLE_ATTRIBUTE_NAME, DRAGGABLE_TEST_VALUE),
+				makeSingleAttributeString(HIDDEN_ATTRIBUTE_NAME, null),
+				makeSingleAttributeString(ID_ATTRIBUTE_NAME, ID_TEST_VALUE),
+				makeSingleAttributeString(LANG_ATTRIBUTE_NAME, LANG_TEST_VALUE),
+				makeSingleAttributeString(ON_CONTEXT_MENU_ATTRIBUTE_NAME, SCRIPT_TEST_VALUE),
+				makeSingleAttributeString(ON_COPY_ATTRIBUTE_NAME, SCRIPT_TEST_VALUE),
+				makeSingleAttributeString(ON_CUT_ATTRIBUTE_NAME, SCRIPT_TEST_VALUE),
+				makeSingleAttributeString(ON_DRAG_ATTRIBUTE_NAME, SCRIPT_TEST_VALUE),
+				makeSingleAttributeString(ON_DRAG_END_ATTRIBUTE_NAME, SCRIPT_TEST_VALUE),
+				makeSingleAttributeString(ON_DRAG_ENTER_ATTRIBUTE_NAME, SCRIPT_TEST_VALUE),
+				makeSingleAttributeString(ON_DRAG_LEAVE_ATTRIBUTE_NAME, SCRIPT_TEST_VALUE),
+				makeSingleAttributeString(ON_DRAG_OVER_ATTRIBUTE_NAME, SCRIPT_TEST_VALUE),
+				makeSingleAttributeString(ON_DRAG_START_ATTRIBUTE_NAME, SCRIPT_TEST_VALUE),
+				makeSingleAttributeString(ON_DROP_ATTRIBUTE_NAME, SCRIPT_TEST_VALUE),
+				makeSingleAttributeString(ON_PASTE_ATTRIBUTE_NAME, SCRIPT_TEST_VALUE),
+				makeSingleAttributeString(ON_WHEEL_ATTRIBUTE_NAME, SCRIPT_TEST_VALUE),
+				makeSingleAttributeString(SPELLCHECK_ATTRIBUTE_NAME, SPELLCHECK_TEST_VALUE),
+				makeSingleAttributeString(STYLE_ATTRIBUTE_NAME, STYLE_TEST_VALUE),
+				makeSingleAttributeString(TAB_INDEX_ATTRIBUTE_NAME, TAB_INDEX_TEST_VALUE),
+				makeSingleAttributeString(TEST_CUSTOM_ATTR_NAME, TEST_CUSTOM_ATTR_VALUE),
+				makeSingleAttributeString(TITLE_ATTRIBUTE_NAME, TITLE_TEST_VALUE),
+				makeSingleAttributeString(TRANSLATE_ATTRIBUTE_NAME, TRANSLATE_TEST_VALUE));
+	}
+	
+	/**
+	 * Combines the given attribute strings by alphabetizing them and adding a space between them
+	 *
+	 * @param attributeStrings The collection of attribute strings to combine
+	 * @return The combined string of all the attribute strings together
+	 */
+	protected String combineAttributeStrings(Collection<String> attributeStrings){
+		return attributeStrings.stream()
+				.sorted()
+				.collect(Collectors.joining(" "));
 	}
 	
 	/**
 	 * @return A String containing all the attributes with their set values
 	 */
 	protected String makeAllAttributesString(){
-		return ACCESS_KEY_ATTRIBUTE_NAME + "=\"" + ACCESS_KEY_TEST_VALUE + "\" " +
-				CLASS_ATTRIBUTE_NAME + "=\"" + CLASS_TEST_VALUE + "\" " +
-				CONTENT_EDITABLE_ATTRIBUTE_NAME + "=\"" + CONTENT_EDITABLE_TEST_VALUE + "\" " +
-				DATA_ATTRIBUTE_NAME_PREFIX + DATA_TEST_KEY_NAME + "=\"" + DATA_TEST_VALUE + "\" " +
-				DIR_ATTRIBUTE_NAME + "=\"" + DIR_TEST_VALUE + "\" " +
-				DRAGGABLE_ATTRIBUTE_NAME + "=\"" + DRAGGABLE_TEST_VALUE + "\" " +
-				HIDDEN_ATTRIBUTE_NAME + " " +
-				ID_ATTRIBUTE_NAME + "=\"" + ID_TEST_VALUE + "\" " +
-				LANG_ATTRIBUTE_NAME + "=\"" + LANG_TEST_VALUE + "\" " +
-				ON_COPY_ATTRIBUTE_NAME + "=\"" + SCRIPT_TEST_VALUE + "\" " +
-				ON_CUT_ATTRIBUTE_NAME + "=\"" + SCRIPT_TEST_VALUE + "\" " +
-				ON_DRAG_ATTRIBUTE_NAME + "=\"" + SCRIPT_TEST_VALUE + "\" " +
-				ON_DRAG_END_ATTRIBUTE_NAME + "=\"" + SCRIPT_TEST_VALUE + "\" " +
-				ON_DRAG_ENTER_ATTRIBUTE_NAME + "=\"" + SCRIPT_TEST_VALUE + "\" " +
-				ON_DRAG_LEAVE_ATTRIBUTE_NAME + "=\"" + SCRIPT_TEST_VALUE + "\" " +
-				ON_DRAG_OVER_ATTRIBUTE_NAME + "=\"" + SCRIPT_TEST_VALUE + "\" " +
-				ON_DRAG_START_ATTRIBUTE_NAME + "=\"" + SCRIPT_TEST_VALUE + "\" " +
-				ON_DROP_ATTRIBUTE_NAME + "=\"" + SCRIPT_TEST_VALUE + "\" " +
-				ON_PASTE_ATTRIBUTE_NAME + "=\"" + SCRIPT_TEST_VALUE + "\" " +
-				SPELLCHECK_ATTRIBUTE_NAME + "=\"" + SPELLCHECK_TEST_VALUE + "\" " +
-				STYLE_ATTRIBUTE_NAME + "=\"" + STYLE_TEST_VALUE + "\" " +
-				TAB_INDEX_ATTRIBUTE_NAME + "=\"" + TAB_INDEX_TEST_VALUE + "\" " +
-				TEST_CUSTOM_ATTR_NAME + "=\"" + TEST_CUSTOM_ATTR_VALUE + "\" " +
-				TITLE_ATTRIBUTE_NAME + "=\"" + TITLE_TEST_VALUE + "\" " +
-				TRANSLATE_ATTRIBUTE_NAME + "=\"" + TRANSLATE_TEST_VALUE + "\"";
+		return combineAttributeStrings(getAllAttributeStrings());
 	}
 	
 	/**
@@ -437,6 +478,28 @@ public abstract class BaseHTMLTagTest implements HTMLTagConstants, DefaultTagTes
 	public void testSetOnPasteAttribute(){
 		testSingleSetAttribute(wipeAttributes().onpaste(SCRIPT_TEST_VALUE).build(),
 				ON_PASTE_ATTRIBUTE_NAME, SCRIPT_TEST_VALUE);
+	}
+	
+	/*
+	 * Other Global Event Attributes
+	 */
+	
+	/**
+	 * Test that the {@code oncontextmenu} attribute can be set
+	 */
+	@Test
+	public void testSetOnContextMenuAttribute(){
+		testSingleSetAttribute(wipeAttributes().oncontextmenu(SCRIPT_TEST_VALUE).build(),
+				ON_CONTEXT_MENU_ATTRIBUTE_NAME, SCRIPT_TEST_VALUE);
+	}
+	
+	/**
+	 * Test that the {@code onwheel} attribute can be set
+	 */
+	@Test
+	public void testSetOnWheelAttribute(){
+		testSingleSetAttribute(wipeAttributes().onwheel(SCRIPT_TEST_VALUE).build(),
+				ON_WHEEL_ATTRIBUTE_NAME, SCRIPT_TEST_VALUE);
 	}
 	
 	/*

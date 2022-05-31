@@ -11,7 +11,7 @@ import static org.junit.jupiter.api.Assertions.assertFalse;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 import static org.junit.jupiter.api.Assertions.fail;
 
-public class HTMLTagTest extends BaseHTMLTagTest{
+public class HTMLTagTest extends BaseHTMLTagTest<HTMLTag.HTMLTagBuilder>{
 	
 	public HTMLTagTest(){
 		super(TEST_TAG_NAME, ALL_GLOBAL_ATTRIBUTE_WHITELIST, true,

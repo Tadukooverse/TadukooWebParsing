@@ -1,5 +1,7 @@
 package com.github.tadukoo.parsing.web.html.tag;
 
+import com.github.tadukoo.parsing.web.html.tag.builder.BaseHTMLTagBuilder;
+
 import java.util.Map;
 import java.util.Set;
 
@@ -199,6 +201,22 @@ public class HTMLRootTag extends HTMLTag{
 		@Override
 		public HTMLRootTagBuilder onpaste(String value){
 			return (HTMLRootTagBuilder) super.onpaste(value);
+		}
+		
+		/*
+		 * Global Other Event Attributes
+		 */
+		
+		/** {@inheritDoc} */
+		@Override
+		public HTMLRootTagBuilder oncontextmenu(String value){
+			return (HTMLRootTagBuilder) super.oncontextmenu(value);
+		}
+		
+		/** {@inheritDoc} */
+		@Override
+		public HTMLRootTagBuilder onwheel(String value){
+			return (HTMLRootTagBuilder) super.onwheel(value);
 		}
 		
 		/*

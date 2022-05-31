@@ -114,54 +114,93 @@ public interface HTMLTagConstants{
 	Set<String> GLOBAL_CLIPBOARD_EVENT_ATTRIBUTE_WHITELIST = SetUtil.createSet(ON_COPY_ATTRIBUTE_NAME,
 			ON_CUT_ATTRIBUTE_NAME, ON_PASTE_ATTRIBUTE_NAME);
 	
+	/*
+	 * Other Global Event Attribute Names - apply to all HTML tags
+	 */
+	/** oncontextmenu - Specifies a script to be run when the context menu is triggered */
+	String ON_CONTEXT_MENU_ATTRIBUTE_NAME = "oncontextmenu";
+	/** onwheel - Specifies a script to be run when the mouse wheel rolls up or down over an element */
+	String ON_WHEEL_ATTRIBUTE_NAME = "onwheel";
+	Set<String> OTHER_GLOBAL_EVENT_ATTRIBUTE_WHITELIST = SetUtil.createSet(ON_CONTEXT_MENU_ATTRIBUTE_NAME,
+			ON_WHEEL_ATTRIBUTE_NAME);
+	
 	/** The Set of all global attributes that apply for all HTML tags */
-	Set<String> ALL_GLOBAL_ATTRIBUTE_WHITELIST = SetUtil.createSet(ACCESS_KEY_ATTRIBUTE_NAME, CLASS_ATTRIBUTE_NAME,
-			CONTENT_EDITABLE_ATTRIBUTE_NAME, DIR_ATTRIBUTE_NAME, DRAGGABLE_ATTRIBUTE_NAME, HIDDEN_ATTRIBUTE_NAME,
-			ID_ATTRIBUTE_NAME, LANG_ATTRIBUTE_NAME, SPELLCHECK_ATTRIBUTE_NAME, STYLE_ATTRIBUTE_NAME,
-			TAB_INDEX_ATTRIBUTE_NAME, TITLE_ATTRIBUTE_NAME, TRANSLATE_ATTRIBUTE_NAME,
-			ON_DRAG_ATTRIBUTE_NAME,
-			ON_DRAG_END_ATTRIBUTE_NAME, ON_DRAG_ENTER_ATTRIBUTE_NAME, ON_DRAG_LEAVE_ATTRIBUTE_NAME,
-			ON_DRAG_OVER_ATTRIBUTE_NAME, ON_DRAG_START_ATTRIBUTE_NAME, ON_DROP_ATTRIBUTE_NAME,
-			ON_COPY_ATTRIBUTE_NAME, ON_CUT_ATTRIBUTE_NAME, ON_PASTE_ATTRIBUTE_NAME);
+	Set<String> ALL_GLOBAL_ATTRIBUTE_WHITELIST = SetUtil.mergeSets(GLOBAL_ATTRIBUTE_WHITELIST,
+			GLOBAL_DRAG_EVENT_ATTRIBUTE_WHITELIST, GLOBAL_CLIPBOARD_EVENT_ATTRIBUTE_WHITELIST,
+			OTHER_GLOBAL_EVENT_ATTRIBUTE_WHITELIST);
 	
 	/*
-	 * Global Form Event Attribute Names - apply to most HTML tags
+	 * Global Focus Event Attribute Names - apply to most HTML tags
+	 * - all except <base>, <bdo>, <br>, <head>, <html>, <iframe>, <meta>, <param>, <script>, <style>, and <title>
 	 */
-	/*
-	 * onblur
-	 * onchange
-	 * oncontextmenu
-	 * onfocus
-	 * oninput
-	 * oninvalid
-	 * onreset
-	 * onsearch
-	 * onselect
-	 * onsubmit
-	 */
+	/** onblur - Specifies a script to run when the element loses focus */
+	String ON_BLUR_ATTRIBUTE_NAME = "onblur";
+	/** onfocus - Specifies a script to run when the element gets focus */
+	String ON_FOCUS_ATTRIBUTE_NAME = "onfocus";
+	/** The Set of all global focus event attributes */
+	Set<String> GLOBAL_FOCUS_EVENT_ATTRIBUTE_WHITELIST = SetUtil.createSet(ON_BLUR_ATTRIBUTE_NAME,
+			ON_FOCUS_ATTRIBUTE_NAME);
 	
 	/*
 	 * Global Keyboard Event Attribute Names - apply to most HTML tags
+	 * - all except <base>, <bdo>, <br>, <head>, <html>, <iframe>, <meta>, <param>, <script>, <style>, and <title>
 	 */
-	/*
-	 * onkeydown
-	 * onkeypress
-	 * onkeyup
-	 */
+	/** onkeydown - Specifies a script to run when a user is pressing a key */
+	String ON_KEY_DOWN_ATTRIBUTE_NAME = "onkeydown";
+	/** onkeypress - Specifies a script to run when a user presses a key */
+	String ON_KEY_PRESS_ATTRIBUTE_NAME = "onkeypress";
+	/** onkeyup - Specifies a script to run when a user releases a key */
+	String ON_KEY_UP_ATTRIBUTE_NAME = "onkeyup";
+	/** The Set of all global keyboard event attributes */
+	Set<String> GLOBAL_KEYBOARD_EVENT_ATTRIBUTE_WHITELIST = SetUtil.createSet(ON_KEY_DOWN_ATTRIBUTE_NAME,
+			ON_KEY_PRESS_ATTRIBUTE_NAME, ON_KEY_UP_ATTRIBUTE_NAME);
 	
 	/*
 	 * Global Mouse Event Attribute Names - apply to most HTML tags
+	 * - all except <base>, <bdo>, <br>, <head>, <html>, <iframe>, <meta>, <param>, <script>, <style>, and <title>
 	 */
+	/** onclick - Specifies a script that runs on a mouse click on the element */
+	String ON_CLICK_ATTRIBUTE_NAME = "onclick";
+	/** ondblclick - Specifies a script that runs on a mouse double-click on the element */
+	String ON_DBL_CLICK_ATTRIBUTE_NAME = "ondblclick";
+	/** onmousedown - Specifies a script that runs when a mouse button is pressed down on an element */
+	String ON_MOUSE_DOWN_ATTRIBUTE_NAME = "onmousedown";
+	/** onmousemove - Specifies a script that runs when the mouse pointer is moving while it is over an element */
+	String ON_MOUSE_MOVE_ATTRIBUTE_NAME = "onmousemove";
+	/** onmouseout - Specifies a script that runs when the mouse pointer moves out of an element */
+	String ON_MOUSE_OUT_ATTRIBUTE_NAME = "onmouseout";
+	/** onmouseover - Specifies a script that runs when the mouse pointer moves over an element */
+	String ON_MOUSE_OVER_ATTRIBUTE_NAME = "onmouseover";
+	/** onmouseup - Specifies a script that runs when a mouse button is released over an element */
+	String ON_MOUSE_UP_ATTRIBUTE_NAME = "onmouseup";
+	/** The Set of all global mouse event attributes */
+	Set<String> GLOBAL_MOUSE_EVENT_ATTRIBUTE_WHITELIST = SetUtil.createSet(ON_CLICK_ATTRIBUTE_NAME,
+			ON_DBL_CLICK_ATTRIBUTE_NAME, ON_MOUSE_DOWN_ATTRIBUTE_NAME, ON_MOUSE_MOVE_ATTRIBUTE_NAME,
+			ON_MOUSE_OUT_ATTRIBUTE_NAME, ON_MOUSE_OVER_ATTRIBUTE_NAME, ON_MOUSE_UP_ATTRIBUTE_NAME);
+	
+	/** The Set of all global attributes that apply to focusable elements as a whitelist */
+	Set<String> GLOBAL_FOCUSABLE_ATTRIBUTE_WHITELIST = SetUtil.mergeSets(ALL_GLOBAL_ATTRIBUTE_WHITELIST,
+			GLOBAL_FOCUS_EVENT_ATTRIBUTE_WHITELIST, GLOBAL_KEYBOARD_EVENT_ATTRIBUTE_WHITELIST,
+			GLOBAL_MOUSE_EVENT_ATTRIBUTE_WHITELIST);
+	
 	/*
-	 * onclick
-	 * ondblclick
-	 * onmousedown
-	 * onmousemove
-	 * onmouseout
-	 * onmouseover
-	 * onmouseup
-	 * onwheel
+	 * Global Load Event Attribute Names - apply to some html tags
+	 * - only to <body>, <frame>, <frameset>, <iframe>, <img>, <input type="image">, <link>, <script> and <style>
 	 */
+	/** onload - Specifies the script to run after the page is finished loading */
+	String ON_LOAD_ATTRIBUTE_NAME = "onload";
+	/** onunload - Specifies the script to run once a page has unloaded (or the browser window has been closed) */
+	String ON_UNLOAD_ATTRIBUTE_NAME = "onunload";
+	/** The Set of all global load event attributes */
+	Set<String> GLOBAL_LOAD_EVENT_ATTRIBUTE_WHITELIST = SetUtil.createSet(ON_LOAD_ATTRIBUTE_NAME,
+			ON_UNLOAD_ATTRIBUTE_NAME);
+	
+	/** The Set of all global attributes that apply to loadable elements as a whitelist */
+	Set<String> GLOBAL_LOADABLE_ATTRIBUTE_WHITELIST = SetUtil.mergeSets(ALL_GLOBAL_ATTRIBUTE_WHITELIST,
+			GLOBAL_LOAD_EVENT_ATTRIBUTE_WHITELIST);
+	/** The Set of all global attributes that apply to elements that are focusable and loadable as a whitelist */
+	Set<String> GLOBAL_FOCUSABLE_AND_LOADABLE_ATTRIBUTE_WHITELIST = SetUtil.mergeSets(
+			GLOBAL_FOCUSABLE_ATTRIBUTE_WHITELIST, GLOBAL_LOADABLE_ATTRIBUTE_WHITELIST);
 	
 	/*
 	 * Global Window Event Attribute Names - apply to body tag
@@ -170,9 +209,7 @@ public interface HTMLTagConstants{
 	 * onafterprint
 	 * onbeforeprint
 	 * onbeforeunload
-	 * onerror
 	 * onhashchange
-	 * onload
 	 * onmessage
 	 * onoffline
 	 * ononline
@@ -181,7 +218,6 @@ public interface HTMLTagConstants{
 	 * onpopstate
 	 * onresize
 	 * onstorage
-	 * onunload
 	 */
 	
 	/*
@@ -214,12 +250,32 @@ public interface HTMLTagConstants{
 	 */
 	
 	/*
+	 * Global Input Event Attribute Names - apply mainly to input tag
+	 */
+	/*
+	 * onchange
+	 * oninput
+	 * oninvalid
+	 * onsearch
+	 * onselect
+	 */
+	
+	/*
 	 * Other Attribute Names
 	 */
-	/** onscroll - Specifies a script to be run when an element's scrollbar is being scrolled */
+	/** onscroll - Specifies a script to be run when an element's scrollbar is being scrolled
+	 * - Supported on &lt;address>, &lt;blockquote>, &lt;body>, &lt;caption>, &lt;center>, &lt;dd>,
+	 * &lt;dir>, &lt;div>, &lt;dl>, &lt;dt>, &lt;fieldset>, &lt;form>, &lt;h1> to &lt;h6>, &lt;html>,
+	 * &lt;li>, &lt;menu>, &lt;object>, &lt;ol>, &lt;p>, &lt;pre>, &lt;select>, &lt;tbody>,
+	 * &lt;textarea>, &lt;tfoot>, &lt;thead>, and &lt;ul> */
 	String ON_SCROLL_ATTRIBUTE_NAME = "onscroll";
 	/*
 	 * ontoggle - used in details tag
+	 */
+	/*
+	 * These 2 used in form tag
+	 * onreset
+	 * onsubmit
 	 */
 	
 	/*
