@@ -12,6 +12,8 @@ public class HTMLBodyTag extends HTMLTag{
 		/** Not allowed to instantiate outside {@link HTMLBodyTag} */
 		private HTMLBodyTagBuilder(){
 			super();
+			attributeWhitelist.addAll(BODY_TAG_ATTRIBUTE_WHITELIST);
+			subTagWhitelist.addAll(VALID_HTML_BODY_SUB_TAGS);
 		}
 		
 		/*
@@ -284,6 +286,154 @@ public class HTMLBodyTag extends HTMLTag{
 		@Override
 		public HTMLBodyTagBuilder onmouseup(String value){
 			return (HTMLBodyTagBuilder) super.onmouseup(value);
+		}
+		
+		/*
+		 * Global Window Event Attribute Names - apply to body tag
+		 */
+		
+		/**
+		 * Specifies the value for the {@link #ON_AFTER_PRINT_ATTRIBUTE_NAME onafterprint attribute},
+		 * which specifies the script to be run after the document is printed
+		 *
+		 * @param value The value for the {@code onafterprint} attribute for the {@link HTMLBodyTag}
+		 * @return this, to continue building
+		 */
+		public HTMLBodyTagBuilder onafterprint(String value){
+			attributes.put(ON_AFTER_PRINT_ATTRIBUTE_NAME, value);
+			return this;
+		}
+		
+		/**
+		 * Specifies the value for the {@link #ON_BEFORE_PRINT_ATTRIBUTE_NAME onbeforeprint attribute},
+		 * which specifies the script to be run before the document is printed
+		 *
+		 * @param value The value for the {@code onbeforeprint} attribute for the {@link HTMLBodyTag}
+		 * @return this, to continue building
+		 */
+		public HTMLBodyTagBuilder onbeforeprint(String value){
+			attributes.put(ON_BEFORE_PRINT_ATTRIBUTE_NAME, value);
+			return this;
+		}
+		
+		/**
+		 * Specifies the value for the {@link #ON_BEFORE_UNLOAD_ATTRIBUTE_NAME onbeforeunload attribute},
+		 * which specifies the script to be run when the document is about to be unloaded
+		 *
+		 * @param value The value for the {@code onbeforeunload} attribute for the {@link HTMLBodyTag}
+		 * @return this, to continue building
+		 */
+		public HTMLBodyTagBuilder onbeforeunload(String value){
+			attributes.put(ON_BEFORE_UNLOAD_ATTRIBUTE_NAME, value);
+			return this;
+		}
+		
+		/**
+		 * Specifies the value for the {@link #ON_HASH_CHANGE_ATTRIBUTE_NAME onhashchange attribute},
+		 * which specifies the script to be run when there has been changes to the anchor part of the URL
+		 *
+		 * @param value The value for the {@code onhashchange} attribute for the {@link HTMLBodyTag}
+		 * @return this, to continue building
+		 */
+		public HTMLBodyTagBuilder onhashchange(String value){
+			attributes.put(ON_HASH_CHANGE_ATTRIBUTE_NAME, value);
+			return this;
+		}
+		
+		/**
+		 * Specifies the value for the {@link #ON_MESSAGE_ATTRIBUTE_NAME onmessage attribute},
+		 * which specifies the script to be run when the message is triggered
+		 *
+		 * @param value The value for the {@code onmessage} attribute for the {@link HTMLBodyTag}
+		 * @return this, to continue building
+		 */
+		public HTMLBodyTagBuilder onmessage(String value){
+			attributes.put(ON_MESSAGE_ATTRIBUTE_NAME, value);
+			return this;
+		}
+		
+		/**
+		 * Specifies the value for the {@link #ON_OFFLINE_ATTRIBUTE_NAME onoffline attribute},
+		 * which specifies the script to be run when the browser starts to work offline
+		 *
+		 * @param value The value for the {@code onoffline} attribute for the {@link HTMLBodyTag}
+		 * @return this, to continue building
+		 */
+		public HTMLBodyTagBuilder onoffline(String value){
+			attributes.put(ON_OFFLINE_ATTRIBUTE_NAME, value);
+			return this;
+		}
+		
+		/**
+		 * Specifies the value for the {@link #ON_ONLINE_ATTRIBUTE_NAME ononline attribute},
+		 * which specifies the script to be run when the browser starts to work online
+		 *
+		 * @param value The value for the {@code ononline} attribute for the {@link HTMLBodyTag}
+		 * @return this, to continue building
+		 */
+		public HTMLBodyTagBuilder ononline(String value){
+			attributes.put(ON_ONLINE_ATTRIBUTE_NAME, value);
+			return this;
+		}
+		
+		/**
+		 * Specifies the value for the {@link #ON_PAGE_HIDE_ATTRIBUTE_NAME onpagehide attribute},
+		 * which specifies the script to be run when a user navigates away from a page
+		 *
+		 * @param value The value for the {@code onpagehide} attribute for the {@link HTMLBodyTag}
+		 * @return this, to continue building
+		 */
+		public HTMLBodyTagBuilder onpagehide(String value){
+			attributes.put(ON_PAGE_HIDE_ATTRIBUTE_NAME, value);
+			return this;
+		}
+		
+		/**
+		 * Specifies the value for the {@link #ON_PAGE_SHOW_ATTRIBUTE_NAME onpageshow attribute},
+		 * which specifies the script to be run when a user navigates to a page
+		 *
+		 * @param value The value for the {@code onpageshow} attribute for the {@link HTMLBodyTag}
+		 * @return this, to continue building
+		 */
+		public HTMLBodyTagBuilder onpageshow(String value){
+			attributes.put(ON_PAGE_SHOW_ATTRIBUTE_NAME, value);
+			return this;
+		}
+		
+		/**
+		 * Specifies the value for the {@link #ON_POP_STATE_ATTRIBUTE_NAME onpopstate attribute},
+		 * which specifies the script to be run when the window's history changes
+		 *
+		 * @param value The value for the {@code onpopstate} attribute for the {@link HTMLBodyTag}
+		 * @return this, to continue building
+		 */
+		public HTMLBodyTagBuilder onpopstate(String value){
+			attributes.put(ON_POP_STATE_ATTRIBUTE_NAME, value);
+			return this;
+		}
+		
+		/**
+		 * Specifies the value for the {@link #ON_RESIZE_ATTRIBUTE_NAME onresize attribute},
+		 * which specifies the script to run when the browser window is resized
+		 *
+		 * @param value The value for the {@code onresize} attribute for the {@link HTMLBodyTag}
+		 * @return this, to continue building
+		 */
+		public HTMLBodyTagBuilder onresize(String value){
+			attributes.put(ON_RESIZE_ATTRIBUTE_NAME, value);
+			return this;
+		}
+		
+		/**
+		 * Specifies the value for the {@link #ON_STORAGE_ATTRIBUTE_NAME onstorage attribute},
+		 * which specifies the script to be run when a Web Storage area is updated
+		 *
+		 * @param value The value for the {@code onstorage} attribute for the {@link HTMLBodyTag}
+		 * @return this, to continue building
+		 */
+		public HTMLBodyTagBuilder onstorage(String value){
+			attributes.put(ON_STORAGE_ATTRIBUTE_NAME, value);
+			return this;
 		}
 		
 		/** {@inheritDoc} */

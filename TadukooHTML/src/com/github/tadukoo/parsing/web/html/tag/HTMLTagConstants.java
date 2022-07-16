@@ -37,6 +37,27 @@ public interface HTMLTagConstants{
 			HTML_BASE_TAG_NAME, HTML_LINK_TAG_NAME, HTML_META_TAG_NAME, HTML_SCRIPT_TAG_NAME, HTML_NOSCRIPT_TAG_NAME);
 	
 	/*
+	 * Body Tag Names (tags that go inside &lt;body> tag)
+	 */
+	String HTML_HEADING_1_TAG_NAME = "h1";
+	String HTML_HEADING_2_TAG_NAME = "h2";
+	String HTML_HEADING_3_TAG_NAME = "h3";
+	String HTML_HEADING_4_TAG_NAME = "h4";
+	String HTML_HEADING_5_TAG_NAME = "h5";
+	String HTML_HEADING_6_TAG_NAME = "h6";
+	String HTML_PARAGRAPH_TAG_NAME = "p";
+	String HTML_IMAGE_TAG_NAME = "img";
+	String HTML_HYPERLINK_TAG_NAME = "a";
+	String HTML_TABLE_TAG_NAME = "table";
+	String HTML_UNORDERED_LIST_TAG_NAME = "ul";
+	String HTML_ORDERED_LIST_TAG_NAME = "ol";
+	/** The Set of valid sub tags of the &lt;body> tag */
+	Set<String> VALID_HTML_BODY_SUB_TAGS = SetUtil.createSet(HTML_HEADING_1_TAG_NAME, HTML_HEADING_2_TAG_NAME,
+			HTML_HEADING_3_TAG_NAME, HTML_HEADING_4_TAG_NAME, HTML_HEADING_5_TAG_NAME, HTML_HEADING_6_TAG_NAME,
+			HTML_PARAGRAPH_TAG_NAME, HTML_IMAGE_TAG_NAME, HTML_HYPERLINK_TAG_NAME, HTML_TABLE_TAG_NAME,
+			HTML_UNORDERED_LIST_TAG_NAME, HTML_ORDERED_LIST_TAG_NAME);
+	
+	/*
 	 * Special Names
 	 */
 	/** This is used to specify that content is valid to hold within an HTML tag */
@@ -205,20 +226,39 @@ public interface HTMLTagConstants{
 	/*
 	 * Global Window Event Attribute Names - apply to body tag
 	 */
-	/*
-	 * onafterprint
-	 * onbeforeprint
-	 * onbeforeunload
-	 * onhashchange
-	 * onmessage
-	 * onoffline
-	 * ononline
-	 * onpagehide
-	 * onpageshow
-	 * onpopstate
-	 * onresize
-	 * onstorage
-	 */
+	/** onafterprint - Specifies the script to be run after the document is printed */
+	String ON_AFTER_PRINT_ATTRIBUTE_NAME = "onafterprint";
+	/** onbeforeprint - Specifies the script to be run before the document is printed */
+	String ON_BEFORE_PRINT_ATTRIBUTE_NAME = "onbeforeprint";
+	/** onbeforeunload - Specifies the script to be run when the document is about to be unloaded */
+	String ON_BEFORE_UNLOAD_ATTRIBUTE_NAME = "onbeforeunload";
+	/** onhashchange - Specifies the script to be run when there has been changes to the anchor part of the URL */
+	String ON_HASH_CHANGE_ATTRIBUTE_NAME = "onhashchange";
+	/** onmessage - Specifies the script to be run when the message is triggered */
+	String ON_MESSAGE_ATTRIBUTE_NAME = "onmessage";
+	/** onoffline - Specifies the script to be run when the browser starts to work offline */
+	String ON_OFFLINE_ATTRIBUTE_NAME = "onoffline";
+	/** ononline - Specifies the script to be run when the browser starts to work online */
+	String ON_ONLINE_ATTRIBUTE_NAME = "ononline";
+	/** onpagehide - Specifies the script to be run when a user navigates away from a page */
+	String ON_PAGE_HIDE_ATTRIBUTE_NAME = "onpagehide";
+	/** onpageshow - Specifies the script to be run when a user navigates to a page */
+	String ON_PAGE_SHOW_ATTRIBUTE_NAME = "onpageshow";
+	/** onpopstate - Specifies the script to be run when the window's history changes */
+	String ON_POP_STATE_ATTRIBUTE_NAME = "onpopstate";
+	/** onresize - Specifies the script to run when the browser window is resized */
+	String ON_RESIZE_ATTRIBUTE_NAME = "onresize";
+	/** onstorage - Specifies the script to be run when a Web Storage area is updated */
+	String ON_STORAGE_ATTRIBUTE_NAME = "onstorage";
+	/** The Set of all global attributes for window events as a whitelist */
+	Set<String> GLOBAL_WINDOW_EVENT_ATTRIBUTE_WHITELIST = SetUtil.createSet(ON_AFTER_PRINT_ATTRIBUTE_NAME,
+			ON_BEFORE_PRINT_ATTRIBUTE_NAME, ON_BEFORE_UNLOAD_ATTRIBUTE_NAME, ON_HASH_CHANGE_ATTRIBUTE_NAME,
+			ON_MESSAGE_ATTRIBUTE_NAME, ON_OFFLINE_ATTRIBUTE_NAME, ON_ONLINE_ATTRIBUTE_NAME,
+			ON_PAGE_HIDE_ATTRIBUTE_NAME, ON_PAGE_SHOW_ATTRIBUTE_NAME, ON_POP_STATE_ATTRIBUTE_NAME,
+			ON_RESIZE_ATTRIBUTE_NAME, ON_STORAGE_ATTRIBUTE_NAME);
+	/** The Set of all body tag attributes as a whitelist */
+	Set<String> BODY_TAG_ATTRIBUTE_WHITELIST = SetUtil.mergeSets(
+			GLOBAL_FOCUSABLE_AND_LOADABLE_ATTRIBUTE_WHITELIST, GLOBAL_WINDOW_EVENT_ATTRIBUTE_WHITELIST);
 	
 	/*
 	 * Global Media Event Attribute Names - apply to media HTML tags

@@ -73,6 +73,78 @@ public class HTMLTagConstantsTest implements HTMLTagConstants{
 	}
 	
 	/*
+	 * Body Tag Names
+	 */
+	
+	@Test
+	public void testHTML_HEADING_1_TAG_NAME(){
+		assertEquals("h1", HTML_HEADING_1_TAG_NAME);
+	}
+	
+	@Test
+	public void testHTML_HEADING_2_TAG_NAME(){
+		assertEquals("h2", HTML_HEADING_2_TAG_NAME);
+	}
+	
+	@Test
+	public void testHTML_HEADING_3_TAG_NAME(){
+		assertEquals("h3", HTML_HEADING_3_TAG_NAME);
+	}
+	
+	@Test
+	public void testHTML_HEADING_4_TAG_NAME(){
+		assertEquals("h4", HTML_HEADING_4_TAG_NAME);
+	}
+	
+	@Test
+	public void testHTML_HEADING_5_TAG_NAME(){
+		assertEquals("h5", HTML_HEADING_5_TAG_NAME);
+	}
+	
+	@Test
+	public void testHTML_HEADING_6_TAG_NAME(){
+		assertEquals("h6", HTML_HEADING_6_TAG_NAME);
+	}
+	
+	@Test
+	public void testHTML_PARAGRAPH_TAG_NAME(){
+		assertEquals("p", HTML_PARAGRAPH_TAG_NAME);
+	}
+	
+	@Test
+	public void testHTML_IMAGE_TAG_NAME(){
+		assertEquals("img", HTML_IMAGE_TAG_NAME);
+	}
+	
+	@Test
+	public void testHTML_HYPERLINK_TAG_NAME(){
+		assertEquals("a", HTML_HYPERLINK_TAG_NAME);
+	}
+	
+	@Test
+	public void testHTML_TABLE_TAG_NAME(){
+		assertEquals("table", HTML_TABLE_TAG_NAME);
+	}
+	
+	@Test
+	public void testHTML_UNORDERED_LIST_TAG_NAME(){
+		assertEquals("ul", HTML_UNORDERED_LIST_TAG_NAME);
+	}
+	
+	@Test
+	public void testHTML_ORDERED_LIST_TAG_NAME(){
+		assertEquals("ol", HTML_ORDERED_LIST_TAG_NAME);
+	}
+	
+	@Test
+	public void testVALID_HTML_BODY_SUB_TAGS(){
+		assertEquals(SetUtil.createSet(HTML_HEADING_1_TAG_NAME, HTML_HEADING_2_TAG_NAME,
+				HTML_HEADING_3_TAG_NAME, HTML_HEADING_4_TAG_NAME, HTML_HEADING_5_TAG_NAME, HTML_HEADING_6_TAG_NAME,
+				HTML_PARAGRAPH_TAG_NAME, HTML_IMAGE_TAG_NAME, HTML_HYPERLINK_TAG_NAME, HTML_TABLE_TAG_NAME,
+				HTML_UNORDERED_LIST_TAG_NAME, HTML_ORDERED_LIST_TAG_NAME), VALID_HTML_BODY_SUB_TAGS);
+	}
+	
+	/*
 	 * Special Names
 	 */
 	
@@ -390,6 +462,85 @@ public class HTMLTagConstantsTest implements HTMLTagConstants{
 	public void testGLOBAL_FOCUSABLE_AND_LOADABLE_ATTRIBUTE_WHITELIST(){
 		assertEquals(SetUtil.mergeSets(GLOBAL_FOCUSABLE_ATTRIBUTE_WHITELIST, GLOBAL_LOADABLE_ATTRIBUTE_WHITELIST),
 				GLOBAL_FOCUSABLE_AND_LOADABLE_ATTRIBUTE_WHITELIST);
+	}
+	
+	/*
+	 * Global Window Event Attribute Names
+	 */
+	
+	@Test
+	public void testON_AFTER_PRINT_ATTRIBUTE_NAME(){
+		assertEquals("onafterprint", ON_AFTER_PRINT_ATTRIBUTE_NAME);
+	}
+	
+	@Test
+	public void testON_BEFORE_PRINT_ATTRIBUTE_NAME(){
+		assertEquals("onbeforeprint", ON_BEFORE_PRINT_ATTRIBUTE_NAME);
+	}
+	
+	@Test
+	public void testON_BEFORE_UNLOAD_ATTRIBUTE_NAME(){
+		assertEquals("onbeforeunload", ON_BEFORE_UNLOAD_ATTRIBUTE_NAME);
+	}
+	
+	@Test
+	public void testON_HASH_CHANGE_ATTRIBUTE_NAME(){
+		assertEquals("onhashchange", ON_HASH_CHANGE_ATTRIBUTE_NAME);
+	}
+	
+	@Test
+	public void testON_MESSAGE_ATTRIBUTE_NAME(){
+		assertEquals("onmessage", ON_MESSAGE_ATTRIBUTE_NAME);
+	}
+	
+	@Test
+	public void testON_OFFLINE_ATTRIBUTE_NAME(){
+		assertEquals("onoffline", ON_OFFLINE_ATTRIBUTE_NAME);
+	}
+	
+	@Test
+	public void testON_ONLINE_ATTRIBUTE_NAME(){
+		assertEquals("ononline", ON_ONLINE_ATTRIBUTE_NAME);
+	}
+	
+	@Test
+	public void testON_PAGE_HIDE_ATTRIBUTE_NAME(){
+		assertEquals("onpagehide", ON_PAGE_HIDE_ATTRIBUTE_NAME);
+	}
+	
+	@Test
+	public void testON_PAGE_SHOW_ATTRIBUTE_NAME(){
+		assertEquals("onpageshow", ON_PAGE_SHOW_ATTRIBUTE_NAME);
+	}
+	
+	@Test
+	public void testON_POP_STATE_ATTRIBUTE_NAME(){
+		assertEquals("onpopstate", ON_POP_STATE_ATTRIBUTE_NAME);
+	}
+	
+	@Test
+	public void testON_RESIZE_ATTRIBUTE_NAME(){
+		assertEquals("onresize", ON_RESIZE_ATTRIBUTE_NAME);
+	}
+	
+	@Test
+	public void testON_STORAGE_ATTRIBUTE_NAME(){
+		assertEquals("onstorage", ON_STORAGE_ATTRIBUTE_NAME);
+	}
+	
+	@Test
+	public void testGLOBAL_WINDOW_EVENT_ATTRIBUTE_WHITELIST(){
+		assertEquals(SetUtil.createSet(ON_AFTER_PRINT_ATTRIBUTE_NAME,
+				ON_BEFORE_PRINT_ATTRIBUTE_NAME, ON_BEFORE_UNLOAD_ATTRIBUTE_NAME, ON_HASH_CHANGE_ATTRIBUTE_NAME,
+				ON_MESSAGE_ATTRIBUTE_NAME, ON_OFFLINE_ATTRIBUTE_NAME, ON_ONLINE_ATTRIBUTE_NAME,
+				ON_PAGE_HIDE_ATTRIBUTE_NAME, ON_PAGE_SHOW_ATTRIBUTE_NAME, ON_POP_STATE_ATTRIBUTE_NAME,
+				ON_RESIZE_ATTRIBUTE_NAME, ON_STORAGE_ATTRIBUTE_NAME), GLOBAL_WINDOW_EVENT_ATTRIBUTE_WHITELIST);
+	}
+	
+	@Test
+	public void testBODY_TAG_ATTRIBUTE_WHITELIST(){
+		assertEquals(SetUtil.mergeSets(GLOBAL_FOCUSABLE_AND_LOADABLE_ATTRIBUTE_WHITELIST,
+				GLOBAL_WINDOW_EVENT_ATTRIBUTE_WHITELIST), BODY_TAG_ATTRIBUTE_WHITELIST);
 	}
 	
 	/*
