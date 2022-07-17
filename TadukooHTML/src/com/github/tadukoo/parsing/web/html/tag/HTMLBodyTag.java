@@ -5,8 +5,81 @@ import com.github.tadukoo.parsing.web.html.tag.builder.BaseFocusableAndLoadableH
 import java.util.Map;
 import java.util.Set;
 
+/**
+ * An {@link HTMLTag} representing the {@code &lt;body>} tag of an HTML Document
+ *
+ * @author Logan Ferree (Tadukoo)
+ * @version Alpha v.0.1
+ */
 public class HTMLBodyTag extends HTMLTag{
 	
+	/**
+	 * A builder to use to build a {@link HTMLBodyTag}. It provides the methods that
+	 * {@link BaseFocusableAndLoadableHTMLTagBuilder} provides for building the tag.
+	 * <br><br>
+	 * It also sets the tags from {@link #VALID_HTML_BODY_SUB_TAGS} as valid sub tags
+	 * <br><br>
+	 * It also adds the following attributes to the attribute whitelist and provides methods
+	 * for setting them:
+	 * <table>
+	 *     <caption>HTML Body Tag Attributes</caption>
+	 *     <tr>
+	 *         <th>Attribute</th>
+	 *         <th>Description</th>
+	 *     </tr>
+	 *     <tr>
+	 *         <td>onafterprint</td>
+	 *         <td>Specifies the script to be run after the document is printed</td>
+	 *     </tr>
+	 *     <tr>
+	 *         <td>onbeforeprint</td>
+	 *         <td>Specifies the script to be run before the document is printed</td>
+	 *     </tr>
+	 *     <tr>
+	 *         <td>onbeforeunload</td>
+	 *         <td>Specifies the script to be run when the document is about to be unloaded</td>
+	 *     </tr>
+	 *     <tr>
+	 *         <td>onhashchange</td>
+	 *         <td>Specifies the script to be run when there has been changes to the anchor part of the URL</td>
+	 *     </tr>
+	 *     <tr>
+	 *         <td>onmessage</td>
+	 *         <td>Specifies the script to be run when the message is triggered</td>
+	 *     </tr>
+	 *     <tr>
+	 *         <td>onoffline</td>
+	 *         <td>Specifies the script to be run when the browser starts to work offline</td>
+	 *     </tr>
+	 *     <tr>
+	 *         <td>ononline</td>
+	 *         <td>Specifies the script to be run when the browser starts to work online</td>
+	 *     </tr>
+	 *     <tr>
+	 *         <td>onpagehide</td>
+	 *         <td>Specifies the script to be run when a user navigates away from a page</td>
+	 *     </tr>
+	 *     <tr>
+	 *         <td>onpageshow</td>
+	 *         <td>Specifies the script to be run when a user navigates to a page</td>
+	 *     </tr>
+	 *     <tr>
+	 *         <td>onpopstate</td>
+	 *         <td>Specifies the script to be run when the window's history changes</td>
+	 *     </tr>
+	 *     <tr>
+	 *         <td>onresize</td>
+	 *         <td>Specifies the script to run when the browser window is resized</td>
+	 *     </tr>
+	 *     <tr>
+	 *         <td>onstorage</td>
+	 *         <td>Specifies the script to be run when a Web Storage area is updated</td>
+	 *     </tr>
+	 * </table>
+	 *
+	 * @author Logan Ferree (Tadukoo)
+	 * @version Alpha v.0.1
+	 */
 	public static class HTMLBodyTagBuilder extends BaseFocusableAndLoadableHTMLTagBuilder{
 		
 		/** Not allowed to instantiate outside {@link HTMLBodyTag} */
@@ -286,6 +359,23 @@ public class HTMLBodyTag extends HTMLTag{
 		@Override
 		public HTMLBodyTagBuilder onmouseup(String value){
 			return (HTMLBodyTagBuilder) super.onmouseup(value);
+		}
+		
+		/*
+		 * Global Load Event Attribute Names - apply to some html tags
+		 * - only to <body>, <frame>, <frameset>, <iframe>, <img>, <input type="image">, <link>, <script> and <style>
+		 */
+		
+		/** {@inheritDoc} */
+		@Override
+		public HTMLBodyTagBuilder onload(String value){
+			return (HTMLBodyTagBuilder) super.onload(value);
+		}
+		
+		/** {@inheritDoc} */
+		@Override
+		public HTMLBodyTagBuilder onunload(String value){
+			return (HTMLBodyTagBuilder) super.onunload(value);
 		}
 		
 		/*
